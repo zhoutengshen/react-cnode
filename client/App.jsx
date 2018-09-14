@@ -3,7 +3,7 @@ import Header from "./Hearder";
 import {hot} from "react-hot-loader";
 const app = () => (
     <div>
-        <h1>wokkkkisinemMaL</h1>
+        <h1>KKKDsinemMaL</h1>
         <Header/>
     </div>
 );

@@ -3,6 +3,7 @@ const path = require("path");
 const webpack = require("webpack");
 const config = require("../webpackConfig/server.config");
 const memoryFs = require("memory-fs");
+const httpProxy = require("http-proxy-middleware")//代理
 //获取html模板,开发环境中的模板存在于内存中，不在硬盘，可以使用http请求获取，这里使用axios
 const getHtmlTemplate = () => {
     return new Promise((resolve, reject) => {
@@ -43,6 +44,10 @@ complie.watch({}, (err, states) => {//这里监视源文件，一旦发生更改
 });
 
 module.exports = function (app) {
+    app.use("/public", httpProxy({//将所有/pblic请求代理到webpack-dev-server的服务器下
+        target: "http://localhost:3000"
+    }));
+    //被代理的请求不会再被get请求处理
     app.get("*", function (req, resp) {//客户端请求，我们需要返回一个html模板
         getHtmlTemplate().then(template => {
             //服务端渲染；
