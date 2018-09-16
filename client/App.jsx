@@ -1,10 +1,10 @@
-import React from "react";
-import Header from "./Hearder";
-import {hot} from "react-hot-loader";
+import React from 'react';
+import Header from './Hearder';
+// import { hot } from 'react-hot-loader';
 const app = () => (
     <div>
         <h1>KKKDsinemMaL</h1>
-        <Header/>
+        <Header />
     </div>
 );
 // export default hot(module)(app);
