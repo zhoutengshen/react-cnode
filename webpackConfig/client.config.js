@@ -2,38 +2,16 @@ const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const cleanWebpackPlugin = require("clean-webpack-plugin");
 const webpack = require("webpack");
+const webpackMerge = require("webpack-merge");
+const baseConfig = require("./webpack.base");
+
 const ROOT_PATH = path.join(__dirname, "../");
 const CLIENT_PATH = path.join(ROOT_PATH, "/client");
 const BUILD_PATH = path.join(ROOT_PATH, "/build");
+
 const isDev = process.env.NODE_ENV === "development";//NODE_ENV实在npm 启动时设置的一个变量，在windows下获取到这个变量需要安装cross-evn包
 let config = {
-
     mode: "development",
-    entry: {
-        main: path.join(CLIENT_PATH, "/index.js")
-    },
-    output: {
-        path: BUILD_PATH,
-        filename: "[name].[hash].bundle.js",
-        publicPath: "/public/",//打包后的js的访问路径为：/public/**.js
-    },
-    module: {
-        rules: [
-            {
-                enforce: "pre",
-                test: /.(js|jsx)$/,
-                loader: "eslint-loader",
-                exclude: [
-                    path.resolve(__dirname, '../node_modules')
-                ]
-            },
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                loader: "babel-loader"
-            }
-        ]
-    },
     plugins: [
         new htmlWebpackPlugin({
             template: path.join(CLIENT_PATH, '/index.html')
@@ -42,10 +20,7 @@ let config = {
             root: ROOT_PATH//指定webpack的根目录
         }),
 
-    ],
-    resolve: {
-        extensions: ['.js', '.jsx', '.json'] //表示这几种文件的后缀名可以省略，按照从前到后的方式来进行补全
-    }
+    ]
 }
 if (isDev) {//开发环境
     config.devServer = {
@@ -68,4 +43,4 @@ if (isDev) {//开发环境
     }
     config.plugins.push(new webpack.HotModuleReplacementPlugin());//react-hot-loader需要依赖于它
 }
-module.exports = config;
+module.exports = webpackMerge(baseConfig, config);
