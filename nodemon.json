@@ -1,0 +1,18 @@
+{
+    "restartable": "rs",
+    "verbose": true,
+    "env": {
+        "NODE_ENV": "development"
+    },
+    "watch": [
+        "server",
+        "webpackConfig"
+    ],
+    "ignore": [
+        ".git",
+        "node_modules",
+        "client",
+        "utils"
+    ],
+    "ext": "js"
+}

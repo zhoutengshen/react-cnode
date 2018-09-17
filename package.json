@@ -7,7 +7,7 @@
     "build-client": "webpack  --config ./webpackConfig/client.config.js",
     "build-server": "webpack  --config ./webpackConfig/server.config.js",
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config ./webpackConfig/client.config.js",
-    "dev:server": "cross-env NODE_ENV=development  node ./server/server.js",
+    "dev:server": "nodemon ./server/server.js",
     "build": "npm build-client& npm build-server",
     "eslint": "eslint --ext .js --ext .jsx client/",
     "precommit": "npm run eslint"

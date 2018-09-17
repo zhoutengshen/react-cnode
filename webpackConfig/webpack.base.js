@@ -1,8 +1,9 @@
 const path = require("path");
-const webpackMerge = require("webpack-merge");
+
 const ROOT_PATH = path.join(__dirname, "../");
 const CLIENT_PATH = path.join(ROOT_PATH, "/client");
 const BUILD_PATH = path.join(ROOT_PATH, "/build");
+console.log("HEI BOY");
 module.exports = {
     entry: {
         main: path.join(CLIENT_PATH, "/index.js")
