@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+import App from './views/App';
 
 const root = document.getElementById('app');
 // //方案1
@@ -11,16 +12,18 @@ const render = (Component) => {
     const renderMethod = ReactDOM.hydrate;
     renderMethod(
         <AppContainer>
-            <Component />
+            <BrowserRouter>
+                <Component />
+            </BrowserRouter>
         </AppContainer>,
         root,
     );
 };
 render(App);
 if (module.hot) { // 热加载发生时
-    module.hot.accept('./App.jsx', () => {
+    module.hot.accept('./views/App', () => {
         // eslint-disable-line 注释告诉eslint不要检查这一行
-        const nextComponent = require('./App').default;// eslint-disable-line
+        const nextComponent = require('./views/App').default;// eslint-disable-line
         render(nextComponent);
     });
 }

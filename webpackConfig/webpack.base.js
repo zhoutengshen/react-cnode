@@ -6,7 +6,7 @@ const BUILD_PATH = path.join(ROOT_PATH, "/build");
 console.log("HEI BOY");
 module.exports = {
     entry: {
-        main: path.join(CLIENT_PATH, "/index.js")
+        main: path.join(CLIENT_PATH, "/app.js")
     },
     output: {
         path: BUILD_PATH,
