@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Routes from '../config/routerConfig';
 
-// import { hot } from 'react-hot-loader';
 const app = () => (
     <div>
         <h1>KKKDinema</h1>
@@ -12,5 +11,4 @@ const app = () => (
         <Routes />
     </div>
 );
-// export default hot(module)(app);
 export default app;

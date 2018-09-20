@@ -7,8 +7,20 @@
         "node": true
     },
     "rules": {
-        "react/jsx-filename-extension": [0],
-        "indent": [2,4],
-        "react/jsx-indent": [ 2, 4 ]
+        "react/jsx-filename-extension": [
+            0
+        ],
+        "indent": [
+            2,
+            4
+        ],
+        "react/jsx-indent": [
+            2,
+            4
+        ],
+        "no-console": [
+            0
+        ],
+        "react/require-default-props":[0]
     }
 }

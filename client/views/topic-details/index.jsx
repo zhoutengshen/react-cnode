@@ -7,7 +7,7 @@ class TopicDetails extends Component {
 
     render() {
         return (
-            <div>here is TopicDetails Component</div>
+            <div>here is TopicDetails</div>
         );
     }
 }
