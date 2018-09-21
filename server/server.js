@@ -18,7 +18,7 @@ if (!isDev) {//非开发环境
     });
 
 } else {
-    const devStatic = require('../utils/devStatic');
+    const devStatic = require('../utils/dev_static');
     devStatic(app);
 }
 app.listen(3333, () => {

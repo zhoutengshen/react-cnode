@@ -29,5 +29,5 @@ autorun(() => {
 });
 setInterval(() => {
     appState.add();
-}, 1000);
+}, 10000);
 export default AppState;

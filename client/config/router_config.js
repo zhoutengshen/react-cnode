@@ -2,8 +2,8 @@ import React from 'react';
 import {
     Route,
 } from 'react-router-dom';
-import TopicList from '../views/topic-list/index';
-import TopicDetail from '../views/topic-details/index';
+import TopicList from '../views/topic-list';
+import TopicDetail from '../views/topic-details';
 
 export default () => [
     <Route path="/" component={TopicList} key="first" exact />,

@@ -11,7 +11,7 @@ let config = {
     target: "node",//"表明webpack打包后的文件的运行环境为node"
     mode: 'development',
     entry: {
-        app: path.join(CLIENT_PATH, "/server.entry.js")
+        "app": path.join(CLIENT_PATH, "/server.entry.js")
     },
     output: {
         path: BUILD_PATH,

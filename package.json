@@ -44,11 +44,14 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "global": "^4.3.2",
     "mobx": "^5.1.2",
     "mobx-react": "^5.2.8",
     "prop-types": "^15.6.2",
+    "query-string": "^6.1.0",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-hot-loader": "^4.0.0",
