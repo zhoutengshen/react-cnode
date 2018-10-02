@@ -11,7 +11,7 @@ const root = document.getElementById('app');
 // ReactDOM.render(<App />, root);
 // 热加载方案2
 const render = (Component) => {
-    const renderMethod = ReactDOM.hydrate;
+    const renderMethod = ReactDOM.render;
     renderMethod(
         <AppContainer>
             <Provider appState={appState}>

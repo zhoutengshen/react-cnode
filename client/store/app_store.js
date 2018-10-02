@@ -25,7 +25,6 @@ class AppState {
 
 export const appState = new AppState();
 autorun(() => {
-    console.log(`名字是:${appState.msg},count ${appState.count}`);
 });
 setInterval(() => {
     appState.add();

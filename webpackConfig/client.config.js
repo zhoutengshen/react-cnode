@@ -39,6 +39,9 @@ if (isDev) {//开发环境
             //这里可以进行转发，配置为：
             //所有404也会转发到这里
             index: "/public/index.html",
+        },
+        proxy:{
+            "/api/":"localhost:3333/api/"
         }
     }
     config.plugins.push(new webpack.HotModuleReplacementPlugin());//react-hot-loader需要依赖于它

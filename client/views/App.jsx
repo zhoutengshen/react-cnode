@@ -5,13 +5,13 @@ import Routes from '../config/router_config';
 
 const App = () => (
     <div>
-        <h1>KKKkDem</h1>
+        <h1>KKKkhhhhhKKKKjjjjjjjjjKLJKLAKKm</h1>
         <Link to="/">主页</Link>
         <br />
         <Link to="/details">详细</Link>
+        <br />
+        <Link to="/apiTestPage">ApiTestPages</Link>
         <Routes />
     </div>
-
-
 );
 export default hot(module)(App);
