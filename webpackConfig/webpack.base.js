@@ -23,7 +23,7 @@ module.exports = {
                     path.resolve(__dirname, '../node_modules')
                 ],
                 options : {
-                    fix :false
+                    fix :true
                 }
             },
             {

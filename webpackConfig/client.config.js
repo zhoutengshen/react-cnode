@@ -41,7 +41,7 @@ if (isDev) {//开发环境
             index: "/public/index.html",
         },
         proxy:{
-            "/api/":"localhost:3333/api/"
+            "/api/":"localhost:3333"
         }
     }
     config.plugins.push(new webpack.HotModuleReplacementPlugin());//react-hot-loader需要依赖于它

@@ -28,7 +28,7 @@ const str2JSModule = (src) => {
 let bund;
 complie.watch({}, (err, states) => {//这里监视源文件，一旦发生更改将触发这个函数
     if (err) throw err;
-    console.log("=============源文件发生了更改！")
+    console.log("=============源文件发生了更改,更新内存里面的文件（模拟热加载）！")
     status = states.toJson();
     console.log(states.toString());
 

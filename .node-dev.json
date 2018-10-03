@@ -1,0 +1,7 @@
+{
+    "ignore": [
+      "client/*",
+      ".git/*",
+      "node_modules"
+    ]
+}
