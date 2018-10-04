@@ -4,7 +4,8 @@ const webpack = require("webpack");
 const config = require("../webpackConfig/server.config");
 const memoryFs = require("memory-fs");
 const httpProxy = require("http-proxy-middleware")//代理
-//获取html模板,开发环境中的模板存在于内存中，不在硬盘，可以使用http请求获取，这里使用axios
+const reactAsyncBootstrpper = require("react-async-bootstrapper");
+//获取html模板,开发环境中的模板存在于内存中，不在硬盘，可以使用http请求获取，这里使用axios  👇
 const getHtmlTemplate = () => {
     // return new Promise((resolve, reject) => {
     //     axios.get("http://localhost:3000/public/index.html")
@@ -16,7 +17,7 @@ const getHtmlTemplate = () => {
     //         });
     // });
     let htmlTemplate = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Document</title><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /></head><body><div id='app'><!--app--></div></body></html>`;
-    return new Promise((resolve,react)=>{
+    return new Promise((resolve, react) => {
         resolve(htmlTemplate);
     });
 };
@@ -61,14 +62,24 @@ module.exports = function (app) {
             let routerContext = {};
             let url = req.path;
             const appState = createAppState();
-            const serverRenderHtml = ssr.renderToString(serverEntry({ appState }, routerContext, url));
-            //服务端渲染不处理Redirect，routerContext为{ action: 'REPLACE',location: { pathname: '', search: '', hash: '', state: any },url: '' }。
-            //所以，我么需要手动重定向
-            if (routerContext.url && url !== routerContext.url) {
-                resp.status(302).setHeader('Location', routerContext.url);
-                resp.send();
-            }
-            resp.send(template.replace("<!--app-->", serverRenderHtml));
+            let app = serverEntry({ appState }, routerContext, url);
+
+            reactAsyncBootstrpper(app)
+                .then(()=>{
+            let app = serverEntry({ appState }, routerContext, url);
+                    console.log(appState.msg);
+                    const serverRenderHtml = ssr.renderToString(app);
+                    //服务端渲染不处理Redirect，routerContext为{ action: 'REPLACE',location: { pathname: '', search: '', hash: '', state: any },url: '' }。
+                    //所以，我么需要手动重定向
+                    if (routerContext.url && url !== routerContext.url) {
+                        resp.status(302).setHeader('Location', routerContext.url);
+                        resp.send();
+                    }
+                    resp.send(template.replace("<!--app-->", serverRenderHtml));
+                })
+                .catch(()=>{
+
+                });
         }).catch(error => resp.send(error.toString()))
     });
 

@@ -14,8 +14,8 @@ class AppState {
         return `${this.name} say the count is ${this.count}`;
     }
 
-    @action add() {
-        this.count += 1;
+    @action add(count1 = 1) {
+        this.count += count1;
     }
 
     @action changeName(name) {

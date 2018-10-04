@@ -20,12 +20,22 @@ class TopicList extends Component {
         this.appState.changeName(name);
     }
 
+
+    // 服务端渲染异步数据
+    bootstrap() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                this.appState.add(10);
+                resolve(true);
+            }, 1000);
+        });
+    }
+
     render() {
         return (
             <div>
                 here is topicList
                 <div>
-                    {' '}
                     <input onChange={(event) => {
                         this.changeName(event.target.value);
                     }}
