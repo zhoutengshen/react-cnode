@@ -8,6 +8,8 @@ const App = () => (
         <h1>KKKkhhhhhKKKKjjjjjjjjjKLJKLAKKm</h1>
         <Link to="/">主页</Link>
         <br />
+        <Link to="/list">列表</Link>
+        <br />
         <Link to="/details">详细</Link>
         <br />
         <Link to="/apiTestPage">ApiTestPages</Link>

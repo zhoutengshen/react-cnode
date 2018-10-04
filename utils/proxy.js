@@ -26,7 +26,7 @@ module.exports = (req, resp, next) => {
         },
         params: query,
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/json"
         }
     }).then((resp1) => {
         resp.status(resp1.status).send(resp1.data);

@@ -25,7 +25,7 @@ app.use(serveFavicon(path.join(__dirname, "/favicon.ico")));// 注册网站图�
 const isDev = process.env.NODE_ENV === 'development';
 if (!isDev) {//非开发环境
     app.set('trust proxy', 1) // trust first proxy
-    sess.cookie.secure = true // serve secure cookies
+    session.cookie.secure = true // serve secure cookies
 
     const serverEntry = require('../build/server.entry').default;
     app.use('/public', express.static(path.join(__dirname, '../build')));

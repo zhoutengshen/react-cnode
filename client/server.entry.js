@@ -1,13 +1,18 @@
 import React from 'react';
-import ServerRouter from 'react-router-dom/StaticRouter';
-import { Provider } from 'mobx-react';
-import { appState } from './store/app_store';
+import StaticRouter from 'react-router-dom/StaticRouter';
+import { Provider, useStaticRendering } from 'mobx-react';
 import App from './views/App';
+import AppStateClass, { createAppState } from './store/store';
 
-export default (
-    <Provider appState={appState}>
-        <ServerRouter>
+useStaticRendering(true);
+export default (stores, routerContext, url) => (
+    <Provider {...stores}>
+        <StaticRouter context={routerContext} location={url}>
             <App />
-        </ServerRouter>
+        </StaticRouter>
     </Provider>
 );
+export {
+    AppStateClass,
+    createAppState,
+};

@@ -14,7 +14,9 @@ let config = {
     mode: "development",
     plugins: [
         new htmlWebpackPlugin({
-            template: path.join(CLIENT_PATH, '/index.html')
+            template: path.join(CLIENT_PATH, '/index.html'),
+            minify:true,
+            favicon:path.join(CLIENT_PATH,'favicon.ico')
         }),
         new cleanWebpackPlugin(["build"], {
             root: ROOT_PATH//指定webpack的根目录
@@ -41,7 +43,7 @@ if (isDev) {//开发环境
             index: "/public/index.html",
         },
         proxy:{
-            "/api/":"localhost:3333"
+            "/api":"http://localhost:3333"
         }
     }
     config.plugins.push(new webpack.HotModuleReplacementPlugin());//react-hot-loader需要依赖于它

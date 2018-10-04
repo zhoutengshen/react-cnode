@@ -4,10 +4,10 @@ const axios = require('axios');
 
 const basePath = "https://cnodejs.org/api/v1";
 router.post('/login', (req, resp, next) => {
-    console.log(req.body.accessToken);
+    console.log(req.body);
     req.body = req.body || {};
-    axios.post(`${basePath}/accesstoken`, {
-        accesstoken: req.body.accessToken,
+    let data = "accesstoken="+req.body.accessToken;
+    axios.post(`${basePath}/accesstoken`,data,{
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         }

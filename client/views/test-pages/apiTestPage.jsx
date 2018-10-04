@@ -9,13 +9,11 @@ class ApiTestPage extends Component {
     }
 
     handleLogin() {
-        axios.post('/api/user/login', {
-            data: {
-                accessToken: '98cb1033-b2b3-4af3-83b1-3c03002a71e7',
-            },
+        let data = "accessToken=98cb1033-b2b3-4af3-83b1-3c03002a71e7"
+        axios.post('/api/user/login?a=oieu', data,{
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
         }).then((resp) => {
             console.log(resp.data);
         }).catch((e) => {
