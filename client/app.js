@@ -7,7 +7,7 @@ import App from './views/App';
 import AppState from './store/app_store';
 
 const root = document.getElementById('app');
-const initialStates =  {};// eslint-disable-line
+const initialStates = window.__INITIAL_STATES__ || {};// eslint-disable-line
 
 // 热加载方案2
 const render = (Component) => {

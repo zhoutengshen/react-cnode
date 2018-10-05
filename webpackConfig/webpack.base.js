@@ -3,7 +3,6 @@ const path = require("path");
 const ROOT_PATH = path.join(__dirname, "../");
 const CLIENT_PATH = path.join(ROOT_PATH, "/client");
 const BUILD_PATH = path.join(ROOT_PATH, "/build");
-console.log("HEI BOY");
 module.exports = {
     entry: {
         app: path.join(CLIENT_PATH, "/app.js")

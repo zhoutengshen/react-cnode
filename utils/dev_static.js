@@ -24,12 +24,25 @@ const getHtmlTemplate = () => {
 const complie = webpack(config);//这里默认编译后的文件将储存到硬盘
 const mmfs = new memoryFs();
 complie.outputFileSystem = mmfs;//webpakc打包后文件将储存到内存
-let appState;
-const str2JSModule = (str) => {
-    let Module = module.constructor;
-    let m = new Module();
-    m._compile(str, "server.entry.js");
-    return m.exports;
+const moduleWraper = (code) => {//相当于require("module").wrap(code)的作用=====>function(exports,require,module,__filename,__dirname){}
+    return `(function(exports,require,module,__filename,__dirname){${code}});`;
+};
+const vm = require("vm");
+const str2JSModule = (code) => {
+    //////////// begincode///////////
+    ////这样生成的代码如果由外部依赖会异常；
+    // let Module = module.constructor;
+    // let m = new Module();
+    // m._compile(code, "server.entry.js");
+    // return m.exports;
+    ///////////endcode////////////////
+    code = moduleWraper(code);
+    let script = new vm.Script(code, { filename: "temp.js", displayErrors: true });
+    //wraper ==> function(exports,require,module,__filename,__dirname){}
+    const wraper = script.runInThisContext();
+    const codeModule = { exports: {} };
+    wraper.call(codeModule, codeModule.exports, require, codeModule, __filename, __dirname);
+    return codeModule.exports;
 }
 let serverEntryExports;
 complie.watch({}, (err, states) => {//这里监视源文件，一旦发生更改将触发这个函数
@@ -43,9 +56,9 @@ complie.watch({}, (err, states) => {//这里监视源文件，一旦发生更改
         config.output.filename
     );
     //一旦文件发生更改，即生成新的js文件，我们以同步的方式将他读取出来，
-    let bundStr = mmfs.readFileSync(bundJspath, "UTF-8");//:string
+    let code = mmfs.readFileSync(bundJspath, "UTF-8");//:string
     //这里返回一个字符串，如何将字符串转化为一个js模块？===》https://stackoverflow.com/questions/17581830/load-node-js-module-from-string-in-memory
-    serverEntryExports = str2JSModule(bundStr);//这里相当于 require()
+    serverEntryExports = str2JSModule(code);//这里相当于 require()
 });
 
 module.exports = function (app) {

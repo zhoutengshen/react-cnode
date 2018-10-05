@@ -13,6 +13,7 @@ let config = {
     entry: {
         "app": path.join(CLIENT_PATH, "/server.entry.js")
     },
+    externals:Object.keys(require("../package.json").dependencies),//不用webpack打包依赖
     output: {
         path: BUILD_PATH,
         filename: "server.entry.js",
