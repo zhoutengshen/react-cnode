@@ -6,9 +6,14 @@ import {
 } from 'mobx';
 
 class AppState {
-    @observable count = 0;
+    constructor({ count, name } = { count: 0, name: '老周' }) { // 没有传参数默认为 { count: 0, name: '老周' }
+        this.count = count || 0;// 如果传的参数没有count字段
+        this.name = name || '老周';
+    }
 
-    @observable name = '老周';
+    @observable count;
+
+    @observable name;
 
     @computed get msg() {
         return `${this.name} say the count is ${this.count}`;

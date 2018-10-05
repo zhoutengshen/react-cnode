@@ -27,7 +27,7 @@ class TopicList extends Component {
             setTimeout(() => {
                 this.appState.add(10);
                 resolve(true);
-            }, 1000);
+            }, 10000);
         });
     }
 

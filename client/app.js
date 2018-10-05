@@ -7,12 +7,14 @@ import App from './views/App';
 import AppState from './store/app_store';
 
 const root = document.getElementById('app');
+const initialStates =  {};// eslint-disable-line
+
 // 热加载方案2
 const render = (Component) => {
     const renderMethod = ReactDOM.render;
     renderMethod(
         <AppContainer>
-            <Provider appState={new AppState()}>
+            <Provider appState={new AppState({ ...initialStates })}>
                 <BrowserRouter>
                     <Component />
                 </BrowserRouter>
@@ -21,6 +23,7 @@ const render = (Component) => {
         root,
     );
 };
+
 render(App);
 // // 热加载方案1
 // ReactDOM.render(<App />, root);

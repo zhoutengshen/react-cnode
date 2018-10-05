@@ -7,19 +7,19 @@ const httpProxy = require("http-proxy-middleware")//代理
 const reactAsyncBootstrpper = require("react-async-bootstrapper");
 //获取html模板,开发环境中的模板存在于内存中，不在硬盘，可以使用http请求获取，这里使用axios  👇
 const getHtmlTemplate = () => {
-    // return new Promise((resolve, reject) => {
-    //     axios.get("http://localhost:3000/public/index.html")
-    //         .then(resp => {
-    //             resolve(resp.data);
-    //         })
-    //         .catch(erroe => {
-    //             reject(erroe);
-    //         });
-    // });
-    let htmlTemplate = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Document</title><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /></head><body><div id='app'><!--app--></div></body></html>`;
-    return new Promise((resolve, react) => {
-        resolve(htmlTemplate);
+    return new Promise((resolve, reject) => {
+        axios.get("http://localhost:3000/public/index.html")
+            .then(resp => {
+                resolve(resp.data);
+            })
+            .catch(erroe => {
+                reject(erroe);
+            });
     });
+    // let htmlTemplate = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Document</title><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /></head><body><div id='app'><!--app--></div><!--script--></body></html>`;
+    // return new Promise((resolve, react) => {
+    //     resolve(htmlTemplate);
+    // });
 };
 const complie = webpack(config);//这里默认编译后的文件将储存到硬盘
 const mmfs = new memoryFs();
@@ -55,6 +55,8 @@ module.exports = function (app) {
     //被代理的请求不会再被get请求处理
     app.get("*", function (req, resp) {//客户端请求，我们需要返回一个html模板
         getHtmlTemplate().then(template => {
+
+
             //服务端渲染；
             let ssr = require("react-dom/server");
             const serverEntry = serverEntryExports.default;
@@ -65,9 +67,8 @@ module.exports = function (app) {
             let app = serverEntry({ appState }, routerContext, url);
 
             reactAsyncBootstrpper(app)
-                .then(()=>{
-            let app = serverEntry({ appState }, routerContext, url);
-                    console.log(appState.msg);
+                .then(() => {
+                    let app = serverEntry({ appState }, routerContext, url);
                     const serverRenderHtml = ssr.renderToString(app);
                     //服务端渲染不处理Redirect，routerContext为{ action: 'REPLACE',location: { pathname: '', search: '', hash: '', state: any },url: '' }。
                     //所以，我么需要手动重定向
@@ -75,9 +76,16 @@ module.exports = function (app) {
                         resp.status(302).setHeader('Location', routerContext.url);
                         resp.send();
                     }
+                    //插入脚本,解决客户端数据
+                    let scriptStr = `
+                        <script>
+                        window.__INITIAL_STATES__ = ${JSON.stringify(appState)}
+                        <\/script>
+                    `;
+                    template = template.replace("<!--script-->", scriptStr);
                     resp.send(template.replace("<!--app-->", serverRenderHtml));
                 })
-                .catch(()=>{
+                .catch(() => {
 
                 });
         }).catch(error => resp.send(error.toString()))
