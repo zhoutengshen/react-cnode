@@ -1,11 +1,10 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const serverRender = require('react-dom/server');//服务器渲染
 const serveFavicon = require('serve-favicon'); // 网站图标中间件
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const queryString = require('query-string');
+
 
 let app = express();
 app.use(session({
@@ -13,7 +12,8 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        maxAge: 10 * 60 * 1000
+        maxAge: 10 * 60 * 1000,
+        secure: true
     },
     name: "tid"
 }));
@@ -25,15 +25,13 @@ app.use(serveFavicon(path.join(__dirname, "/favicon.ico")));// 注册网站图�
 const isDev = process.env.NODE_ENV === 'development';
 if (!isDev) {//非开发环境
     app.set('trust proxy', 1) // trust first proxy
-    session.cookie.secure = true // serve secure cookies
-
-    const serverEntry = require('../build/server.entry').default;
+    const bundel = require('../build/server.entry');
+    const serverRender = require("../utils/server_render");
     app.use('/public', express.static(path.join(__dirname, '../build')));
     let indexTempateHtml = fs.readFileSync(path.join(__dirname, '../build/index.html'), 'utf-8');
-    app.get('*', (req, resp) => {
-        let renderHtml = serverRender.renderToString(serverEntry);
-        renderHtml = indexTempateHtml.replace('<!--app-->', renderHtml);
-        resp.send(renderHtml);
+    app.get('*', (req, resp,next) => {
+        req.session.cookie.secure = true // serve secure cookies
+        serverRender(bundel,indexTempateHtml,req,resp,next);
     });
 
 } else {

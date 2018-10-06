@@ -9,7 +9,6 @@ const BUILD_PATH = path.join(ROOT_PATH, "/build");
 //服务端渲染
 let config = {
     target: "node",//"表明webpack打包后的文件的运行环境为node"
-    mode: 'development',
     entry: {
         "app": path.join(CLIENT_PATH, "/server.entry.js")
     },
