@@ -6,13 +6,13 @@ import { Provider } from 'mobx-react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import App from './views/App';
 import AppState from './store/app_store';
-import thme from "./theme";
+import thme from './theme';
+
 const root = document.getElementById('app');
 const initialStates = window.__INITIAL_STATES__ || {};// eslint-disable-line
-
 // 热加载方案2
 const render = (Component) => {
-    const renderMethod = ReactDOM.render;
+    const renderMethod = ReactDOM.hydrate;
     renderMethod(
         <AppContainer>
             <Provider appState={new AppState({ ...initialStates })}>
@@ -26,6 +26,20 @@ const render = (Component) => {
         root,
     );
 };
+
+// class Main extends React.Component {
+//     // Remove the server-side injected CSS.
+//     componentDidMount() {
+//         const jssStyles = document.getElementById('server-render-css');
+//         if (jssStyles && jssStyles.parentNode) {
+//             jssStyles.parentNode.removeChild(jssStyles);
+//         }
+//     }
+
+//     render() {
+//         return <App />;
+//     }
+// }
 
 render(App);
 // // 热加载方案1

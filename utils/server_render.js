@@ -19,7 +19,7 @@ module.exports = (bundle, template, req, resp, next) => {
     const sheetsRegistry = new SheetsRegistry();
 
     // Create a theme instance.
-    const theme = createMuiTheme({
+    const theme = createMuiTheme({//
         palette: {
             primary: green
         },
@@ -46,7 +46,7 @@ module.exports = (bundle, template, req, resp, next) => {
                        `;
             template = template.replace("<!--script-->", scriptStr);
             template = template.replace("<!--<style>-->", `
-                <style>
+                <style id="server-render-css">
                     ${css}
                 <\/style>
             `)
