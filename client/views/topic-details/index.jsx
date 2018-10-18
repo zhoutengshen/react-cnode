@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Typography from '@material-ui/core/Typography';
 
 class TopicDetails extends Component {
     componentDidMount() {
@@ -7,7 +8,9 @@ class TopicDetails extends Component {
 
     render() {
         return (
-            <div>here is TopicDetals</div>
+            <Typography variant="h3">
+                here is TopicDetals
+            </Typography>
         );
     }
 }

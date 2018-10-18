@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import axios from 'axios';
+import Button from "@material-ui/core/Button";
 
 class ApiTestPage extends Component {
     constructor(props) {
@@ -24,9 +25,9 @@ class ApiTestPage extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.handleLogin}>Login</button>
-                <button>XX</button>
-                <button>XXX</button>
+                <Button color="primary" variant="fab" onClick={this.handleLogin}>Login</Button>
+                <Button color="secondary" variant="extendedFab">XX</Button>
+                <Button color="default" variant="contained">XXX</Button>
             </div>
         );
     }

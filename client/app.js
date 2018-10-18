@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import App from './views/App';
 import AppState from './store/app_store';
-
+import thme from "./theme";
 const root = document.getElementById('app');
 const initialStates = window.__INITIAL_STATES__ || {};// eslint-disable-line
 
@@ -15,9 +16,11 @@ const render = (Component) => {
     renderMethod(
         <AppContainer>
             <Provider appState={new AppState({ ...initialStates })}>
-                <BrowserRouter>
-                    <Component />
-                </BrowserRouter>
+                <MuiThemeProvider theme={thme}>
+                    <BrowserRouter>
+                        <Component />
+                    </BrowserRouter>
+                </MuiThemeProvider>
             </Provider>
         </AppContainer>,
         root,

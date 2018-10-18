@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import {
     inject,
     observer,
@@ -27,22 +30,22 @@ class TopicList extends Component {
             setTimeout(() => {
                 this.appState.add(10);
                 resolve(true);
-            }, 10000);
+            }, 1000);
         });
     }
 
     render() {
         return (
             <div>
-                here is topicList
+                <Typography variant="h6">here is topicList</Typography>
                 <div>
                     <input onChange={(event) => {
                         this.changeName(event.target.value);
                     }}
                     />
-                    <h3>
+                    <Button variant="contained" color="primary">
                         {this.appState.msg}
-                    </h3>
+                    </Button>
                 </div>
             </div>
         );
@@ -51,4 +54,8 @@ class TopicList extends Component {
 TopicList.propTypes = {
     appState: PropTypes.instanceOf(AppState),
 };
-export default TopicList;
+export default withStyles(theme => ({
+    root: {
+        primary: theme.palette.primary,
+    },
+}))(TopicList);

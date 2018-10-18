@@ -1,5 +1,12 @@
 const reactAsyncBootstrpper = require("react-async-bootstrapper");
-module.exports = (bundle, template, req, resp,next) => {
+const { SheetsRegistry } = require('jss');
+const {
+    createMuiTheme
+} = require('@material-ui/core/styles');
+const green = require('@material-ui/core/colors/green').default;
+const red = require('@material-ui/core/colors/red').default;
+
+module.exports = (bundle, template, req, resp, next) => {
     //服务端渲染；
     let ssr = require("react-dom/server");
     const serverEntry = bundle.default;
@@ -7,10 +14,22 @@ module.exports = (bundle, template, req, resp,next) => {
     let routerContext = {};
     let url = req.path;
     const appState = createAppState();
-    let app = serverEntry({ appState }, routerContext, url);
+
+    // Create a sheetsRegistry instance.
+    const sheetsRegistry = new SheetsRegistry();
+
+    // Create a theme instance.
+    const theme = createMuiTheme({
+        palette: {
+            primary: green
+        },
+        typography: {
+            useNextVariants: true,
+        },
+    });
+    let app = serverEntry({ appState }, routerContext, url, sheetsRegistry,theme);
     reactAsyncBootstrpper(app)
         .then(() => {
-            let app = serverEntry({ appState }, routerContext, url);
             const serverRenderHtml = ssr.renderToString(app);
             //服务端渲染不处理Redirect，routerContext为{ action: 'REPLACE',location: { pathname: '', search: '', hash: '', state: any },url: '' }。
             //所以，我么需要手动重定向
@@ -18,6 +37,7 @@ module.exports = (bundle, template, req, resp,next) => {
                 resp.status(302).setHeader('Location', routerContext.url);
                 resp.send();
             }
+            const css = sheetsRegistry.toString()
             //插入脚本,解决客户端数据
             let scriptStr = `
                            <script>
@@ -25,6 +45,11 @@ module.exports = (bundle, template, req, resp,next) => {
                            <\/script>
                        `;
             template = template.replace("<!--script-->", scriptStr);
+            template = template.replace("<!--<style>-->", `
+                <style>
+                    ${css}
+                <\/style>
+            `)
             resp.send(template.replace("<!--app-->", serverRenderHtml));
         })
         .catch((error) => {
