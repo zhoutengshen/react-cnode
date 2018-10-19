@@ -5,6 +5,7 @@ const {
 } = require('@material-ui/core/styles');
 const green = require('@material-ui/core/colors/green').default;
 const red = require('@material-ui/core/colors/red').default;
+const indigo = require('@material-ui/core/colors/indigo').default
 
 module.exports = (bundle, template, req, resp, next) => {
     //服务端渲染；
@@ -21,7 +22,8 @@ module.exports = (bundle, template, req, resp, next) => {
     // Create a theme instance.
     const theme = createMuiTheme({//
         palette: {
-            primary: green
+            primary: indigo,
+            secondary:red
         },
         typography: {
             useNextVariants: true,
@@ -45,7 +47,7 @@ module.exports = (bundle, template, req, resp, next) => {
                            <\/script>
                        `;
             template = template.replace("<!--script-->", scriptStr);
-            template = template.replace("<!--<style>-->", `
+            template = template.replace("<!--style-->", `
                 <style id="server-render-css">
                     ${css}
                 <\/style>

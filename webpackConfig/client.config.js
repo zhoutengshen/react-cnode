@@ -25,12 +25,13 @@ let config = {
     ]
 }
 if (isDev) {//开发环境
+    config.devtool = "cheap-module-source-map";
     config.devServer = {
         host: "0.0.0.0",
         port: "3000",
         //启动热加载，无刷新
         hot: true,//如果加上这个需要安装热价在插件。没有这个也可以实现更改代码，更新浏览器界面（会发生浏览器刷新）
-        contentBase: BUILD_PATH,//服务器加载页面所在的目录，index.html所在目录
+        // contentBase: BUILD_PATH,//服务器加载页面所在的目录，index.html所在目录
         overlay: {
             warnings: true,
             errors: true

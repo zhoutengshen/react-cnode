@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import {
     inject,
     observer,
@@ -16,38 +16,38 @@ class TopicList extends Component {
     constructor(props) {
         super(props);
         this.appState = props.appState;
-        this.changeName = this.changeName.bind(this);
+        this.tabChangeHandle = this.tabChangeHandle.bind(this);
+        this.bootstrap = this.bootstrap.bind(this);
     }
 
-    changeName(name) {
-        this.appState.changeName(name);
+    state = {
+        currentIndex: 0,
     }
-
 
     // 服务端渲染异步数据
     bootstrap() {
         return new Promise((resolve) => {
-            setTimeout(() => {
-                this.appState.add(10);
-                resolve(true);
-            }, 1000);
+            resolve(true);
+        });
+    }
+
+    tabChangeHandle(event, index) {
+        this.setState({
+            currentIndex: index,
         });
     }
 
     render() {
+        const { currentIndex } = this.state;
         return (
-            <div>
-                <Typography variant="h6">here is topicList</Typography>
-                <div>
-                    <input onChange={(event) => {
-                        this.changeName(event.target.value);
-                    }}
-                    />
-                    <Button variant="contained" color="primary">
-                        {this.appState.msg}
-                    </Button>
-                </div>
-            </div>
+            <Tabs value={currentIndex} fullWidth onChange={this.tabChangeHandle}>
+                <Tab label="全部" />
+                <Tab label="精华" />
+                <Tab label="分享" />
+                <Tab label="问答" />
+                <Tab label="招聘" />
+                <Tab label="客户端测试" />
+            </Tabs>
         );
     }
 }
