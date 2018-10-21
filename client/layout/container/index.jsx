@@ -31,6 +31,6 @@ export default withStyles(theme => ({
     },
     paper: {
         width: '100%',
-        maginTop: 20,
+        marginTop: 20,
     },
 }))(Conteainer);

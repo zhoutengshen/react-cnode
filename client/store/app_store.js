@@ -6,25 +6,21 @@ import {
 } from 'mobx';
 
 class AppState {
-    constructor({ count, name } = { count: 0, name: '老周' }) { // 没有传参数默认为 { count: 0, name: '老周' }
-        this.count = count || 0;// 如果传的参数没有count字段
-        this.name = name || '老周';
+    constructor({ tabIndex } = { tabIndex: 0 }) { // 没有传参数默认为 { count: 0, name: '老周' }
+        this.currentTabIndex = tabIndex || 0;
     }
 
-    @observable count;
+    @observable
+    currentTabIndex;
 
-    @observable name;
 
     @computed get msg() {
-        return `${this.name} say the count is ${this.count}`;
+        return this.currentTabIndex;
     }
 
-    @action add(count1 = 1) {
-        this.count += count1;
-    }
-
-    @action changeName(name) {
-        this.name = name;
+    @action
+    changeTabIndex(tabIndex) {
+        this.currentTabIndex = tabIndex;
     }
 }
 export default AppState;

@@ -7,12 +7,12 @@ import {
     observer,
 } from 'mobx-react';
 import PropTypes from 'prop-types';
-import AppState from '../../store/app_store';
+import AppState from '../../../store/app_store';
 
 
 @inject('appState')
 @observer
-class TopicList extends Component {
+class Topic extends Component {
     constructor(props) {
         super(props);
         this.appState = props.appState;
@@ -20,42 +20,40 @@ class TopicList extends Component {
         this.bootstrap = this.bootstrap.bind(this);
     }
 
-    state = {
-        currentIndex: 0,
-    }
-
     // 服务端渲染异步数据
     bootstrap() {
-        return new Promise((resolve) => {
-            resolve(true);
-        });
     }
 
-    tabChangeHandle(event, index) {
-        this.setState({
-            currentIndex: index,
-        });
+    tabChangeHandle(event, tabIndex) {
+        this.appState.changeTabIndex(tabIndex);
     }
 
     render() {
-        const { currentIndex } = this.state;
+        const { currentTabIndex } = this.appState;
         return (
-            <Tabs value={currentIndex} fullWidth onChange={this.tabChangeHandle}>
-                <Tab label="全部" />
-                <Tab label="精华" />
-                <Tab label="分享" />
-                <Tab label="问答" />
-                <Tab label="招聘" />
-                <Tab label="客户端测试" />
-            </Tabs>
+            <div>
+                <Tabs value={currentTabIndex} onChange={this.tabChangeHandle}>
+                    <Tab label="全部" />
+                    <Tab label="精华" />
+                    <Tab label="分享" />
+                    <Tab label="问答" />
+                    <Tab label="招聘" />
+                    <Tab label="测试" />
+                </Tabs>
+            </div>
         );
     }
 }
-TopicList.propTypes = {
+
+
+Topic.propTypes = {
     appState: PropTypes.instanceOf(AppState),
 };
 export default withStyles(theme => ({
     root: {
         primary: theme.palette.primary,
     },
-}))(TopicList);
+    tabRoot: {
+        minWidth: 100,
+    },
+}))(Topic);

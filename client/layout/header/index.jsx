@@ -45,15 +45,12 @@ Header.propTypes = {
     classes: ProtoType.object.isRequired,
 };
 
-export default withStyles((theme) => {
-    console.log(theme);
-    return {
-        root: {
-            width: '100%',
-        },
-        title: {
-            flexGrow: 1,
-            marginLeft: theme.spacing.unit * 1,
-        },
-    };
-})(Header);
+export default withStyles(theme => ({
+    root: {
+        width: '100%',
+    },
+    title: {
+        flexGrow: 1,
+        marginLeft: theme.spacing.unit * 1,
+    },
+}))(Header);

@@ -739,10 +739,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@material-ui/core@^3.2.1":
-  version "3.2.1"
-  resolved "http://registry.npm.taobao.org/@material-ui/core/download/@material-ui/core-3.2.1.tgz#3c772d5458a5bee2928a773a21ec6dbce36af18f"
-  integrity sha1-PHctVFilvuKSinc6IextvONq8Y8=
+"@material-ui/core@^3.2.2":
+  version "3.2.2"
+  resolved "http://registry.npm.taobao.org/@material-ui/core/download/@material-ui/core-3.2.2.tgz#5c622eeda8851a37a46d27583f0d6624e8ec4732"
+  integrity sha1-XGIu7aiFGjekbSdYPw1mJOjsRzI=
   dependencies:
     "@babel/runtime" "7.1.2"
     "@types/jss" "^9.5.6"
@@ -780,9 +780,9 @@
     recompose "^0.29.0"
 
 "@types/jss@^9.5.6":
-  version "9.5.6"
-  resolved "http://registry.npm.taobao.org/@types/jss/download/@types/jss-9.5.6.tgz#96e1d246ddfbccc4867494077c714773cf29acde"
-  integrity sha1-luHSRt37zMSGdJQHfHFHc88prN4=
+  version "9.5.7"
+  resolved "http://registry.npm.taobao.org/@types/jss/download/@types/jss-9.5.7.tgz#fa57a6d0b38a3abef8a425e3eb6a53495cb9d5a0"
+  integrity sha1-+lem0LOKOr74pCXj62pTSVy51aA=
   dependencies:
     csstype "^2.0.0"
     indefinite-observable "^1.0.1"
@@ -800,9 +800,9 @@
     "@types/react" "*"
 
 "@types/react@*":
-  version "16.4.16"
-  resolved "http://registry.npm.taobao.org/@types/react/download/@types/react-16.4.16.tgz#99f91b1200ae8c2062030402006d3b3c3a177043"
-  integrity sha1-mfkbEgCujCBiAwQCAG07PDoXcEM=
+  version "16.4.18"
+  resolved "http://registry.npm.taobao.org/@types/react/download/@types/react-16.4.18.tgz#2e28a2e7f92d3fa7d6a65f2b73275c3e3138a13d"
+  integrity sha1-Liii5/ktP6fWpl8rcydcPjE4oT0=
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"

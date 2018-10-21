@@ -4,10 +4,12 @@ const cleanWebpackPlugin = require("clean-webpack-plugin");
 const webpack = require("webpack");
 const webpackMerge = require("webpack-merge");
 const baseConfig = require("./webpack.base");
-
 const ROOT_PATH = path.join(__dirname, "../");
 const CLIENT_PATH = path.join(ROOT_PATH, "/client");
 const BUILD_PATH = path.join(ROOT_PATH, "/build");
+// const Dashboard = require('webpack-dashboard');
+// const DashboardPlugin = require('webpack-dashboard/plugin');
+// const dashboard = new Dashboard();
 
 const isDev = process.env.NODE_ENV === "development";//NODE_ENV实在npm 启动时设置的一个变量，在windows下获取到这个变量需要安装cross-evn包
 let config = {
@@ -15,8 +17,8 @@ let config = {
     plugins: [
         new htmlWebpackPlugin({
             template: path.join(CLIENT_PATH, '/index.html'),
-            minify:true,
-            favicon:path.join(CLIENT_PATH,'favicon.ico')
+            minify: true,
+            favicon: path.join(CLIENT_PATH, 'favicon.ico')
         }),
         new cleanWebpackPlugin(["build"], {
             root: ROOT_PATH//指定webpack的根目录
@@ -25,7 +27,7 @@ let config = {
     ]
 }
 if (isDev) {//开发环境
-    config.devtool = "cheap-module-source-map";
+    config.devtool = "#cheap-module-source-map";
     config.devServer = {
         host: "0.0.0.0",
         port: "3000",
@@ -43,9 +45,10 @@ if (isDev) {//开发环境
             //所有404也会转发到这里
             index: "/public/index.html",
         },
-        proxy:{
-            "/api":"http://localhost:3333"
-        }
+        proxy: {
+            "/api": "http://localhost:3333"
+        },
+
     }
     config.plugins.push(new webpack.HotModuleReplacementPlugin());//react-hot-loader需要依赖于它
 }

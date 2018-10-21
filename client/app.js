@@ -12,7 +12,7 @@ const root = document.getElementById('app');
 const initialStates = window.__INITIAL_STATES__ || {};// eslint-disable-line
 // 热加载方案2
 const render = (Component) => {
-    const renderMethod = ReactDOM.hydrate;
+    const renderMethod = ReactDOM.render;
     renderMethod(
         <AppContainer>
             <Provider appState={new AppState({ ...initialStates })}>
