@@ -1,6 +1,10 @@
-import AppStateClass from './app_store';
+import AppStore from './app_store';
+import TopicStore from './topic_store';
 
-export default AppStateClass;
+export {
+    AppStore,
+    TopicStore,
+};
 export const createAppState = () => (
-    new AppStateClass()
+    new AppStore()
 );

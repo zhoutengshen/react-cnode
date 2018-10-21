@@ -3,8 +3,8 @@ import {
     Route,
     Redirect,
 } from 'react-router-dom';
-import TopicList from '../views/topic-list';
-import TopicDetail from '../views/topic-details';
+import TopicList from '../views/TopicList';
+import TopicDetail from '../views/TopicDetails';
 import ApiTestPage from '../views/test-pages/apiTestPage';
 
 const render = () => (

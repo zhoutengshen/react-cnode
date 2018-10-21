@@ -2,32 +2,36 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import AppState from '../../store/app_store';
+import {
+    AppStore,
+    TopicStore,
+} from '../../store/store';
 import Topic from './Topic';
 import TopicItemContainer from './TopicItemContainer';
 
-import data from './mockData.json';
-
-const data1 = [...data.data].map(item => ({
-    title: item.title,
-    tab: item.tab,
-    replyCount: item.reply_count,
-    visitCount: item.visit_count,
-    avatarUrl: item.author.avatar_url,
-}));
-@inject('appState')
+@inject((stores) => {
+    console.log(stores);
+    return {
+        appStore: stores.appStore,
+        topicStore: stores.topicStore,
+    };
+})
 @observer
 class TopicList extends Component {
     constructor(props) {
         super(props);
-        this.appState = props.appState;
+        this.appStore = props.appStore;
+        this.topicStore = props.topicStore;
         this.bootstrap = this.bootstrap.bind(this);
+        console.log(props);
     }
 
     state = {
     }
 
     componentDidMount() {
+        const { getTopic } = this.topicStore;
+        getTopic();
     }
 
     // 服务端渲染异步数据
@@ -36,18 +40,20 @@ class TopicList extends Component {
 
 
     render() {
-        const { currentTabIndex } = this.appState;
+        const { currentTabIndex } = this.AppStore;
+        const { topics } = this.topicStore;
         return (
             <div>
                 <Topic />
-                {currentTabIndex === 0 && <TopicItemContainer lists={[...data1]} />}
+                {currentTabIndex === 0 && <TopicItemContainer lists={[topics]} />}
             </div>
         );
     }
 }
 
 TopicList.propTypes = {
-    appState: PropTypes.instanceOf(AppState),
+    appStore: PropTypes.instanceOf(AppStore),
+    topicStore: PropTypes.instanceOf(TopicStore),
 };
 export default withStyles(theme => ({
     root: {

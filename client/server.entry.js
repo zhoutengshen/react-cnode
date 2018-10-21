@@ -4,7 +4,7 @@ import { Provider, useStaticRendering } from 'mobx-react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import JssProvider from 'react-jss/lib/JssProvider';
 import App from './views/App';
-import AppStateClass, { createAppState } from './store/store';
+import  { AppStore,TopicStore } from './store/store';
 
 
 useStaticRendering(true);
@@ -20,6 +20,6 @@ export default (stores, routerContext, url, registry, theme) => (
     </Provider>
 );
 export {
-    AppStateClass,
-    createAppState,
+    AppStore,
+    TopicStore,
 };

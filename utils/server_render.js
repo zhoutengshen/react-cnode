@@ -11,10 +11,11 @@ module.exports = (bundle, template, req, resp, next) => {
     //服务端渲染；
     let ssr = require("react-dom/server");
     const serverEntry = bundle.default;
-    const { createAppState, AppStateClass } = bundle;
+    const { TopicStore, AppStore } = bundle;
     let routerContext = {};
     let url = req.path;
-    const appState = createAppState();
+    const appState =new AppStore();
+    const topicStore =new TopicStore()
 
     // Create a sheetsRegistry instance.
     const sheetsRegistry = new SheetsRegistry();
