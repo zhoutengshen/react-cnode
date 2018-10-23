@@ -14,9 +14,10 @@ module.exports = (bundle, template, req, resp, next) => {
     const { TopicStore, AppStore } = bundle;
     let routerContext = {};
     let url = req.path;
-    const appState = new AppStore();
-    const topicStore = new TopicStore()
-
+    const stores = {
+        appStore: new AppStore(),
+        topicStore: new TopicStore()
+    }
     // Create a sheetsRegistry instance.
     const sheetsRegistry = new SheetsRegistry();
 
@@ -30,7 +31,7 @@ module.exports = (bundle, template, req, resp, next) => {
             useNextVariants: true,
         },
     });
-    let app = serverEntry({ appState }, routerContext, url, sheetsRegistry, theme);
+    let app = serverEntry({ ...stores }, routerContext, url, sheetsRegistry, theme);
     reactAsyncBootstrpper(app)
         .then(() => {
             const serverRenderHtml = ssr.renderToString(app);
@@ -39,12 +40,13 @@ module.exports = (bundle, template, req, resp, next) => {
             if (routerContext.url && url !== routerContext.url) {
                 resp.status(302).setHeader('Location', routerContext.url);
                 resp.send();
-            }
-            const css = sheetsRegistry.toString()
+            };
+            const css = sheetsRegistry.toString();
+
             //插入脚本,解决客户端数据
             let scriptStr = `
                            <script>
-                           window.__INITIAL_STATES__ = ${JSON.stringify(appState)}
+                           window.__INITIAL_STATES__ = ${JSON.stringify(stores)}
                            <\/script>
                        `;
             template = template.replace("<!--script-->", scriptStr);
@@ -52,8 +54,11 @@ module.exports = (bundle, template, req, resp, next) => {
                 <style id="server-render-css">
                     ${css}
                 <\/style>
-            `)
-            resp.send(template.replace("<!--app-->", serverRenderHtml));
+            `);
+
+            template = template.replace("<!--app-->", serverRenderHtml);
+            console.log(template)
+            resp.send(template);
         })
         .catch((error) => {
             next();
