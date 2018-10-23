@@ -4,6 +4,7 @@ import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import { observable } from 'mobx';
 import App from './views/App';
 import { AppStore, TopicStore } from './store/store';
 import thme from './theme';
@@ -16,6 +17,7 @@ const stores = {
     appStore: new AppStore({ ...initialStates }),
     topicStore: new TopicStore(),
 };
+observable(stores);
 // 热加载方案2
 const render = (Component) => {
     const renderMethod = ReactDOM.render;
@@ -32,22 +34,9 @@ const render = (Component) => {
         root,
     );
 };
-
-// class Main extends React.Component {
-//     // Remove the server-side injected CSS.
-//     componentDidMount() {
-//         const jssStyles = document.getElementById('server-render-css');
-//         if (jssStyles && jssStyles.parentNode) {
-//             jssStyles.parentNode.removeChild(jssStyles);
-//         }
-//     }
-
-//     render() {
-//         return <App />;
-//     }
-// }
-
 render(App);
+
+
 // // 热加载方案1
 // ReactDOM.render(<App />, root);
 // if (module.hot) { // 热加载发生时

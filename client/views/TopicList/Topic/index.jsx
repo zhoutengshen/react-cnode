@@ -7,15 +7,16 @@ import {
     observer,
 } from 'mobx-react';
 import PropTypes from 'prop-types';
-import AppState from '../../../store/app_store';
+import { AppStore } from '../../../store/store';
 
 
-@inject('appState')
+@inject(({ stores }) => ({
+    appStore: stores.appStore,
+}))
 @observer
 class Topic extends Component {
     constructor(props) {
         super(props);
-        this.appState = props.appState;
         this.tabChangeHandle = this.tabChangeHandle.bind(this);
         this.bootstrap = this.bootstrap.bind(this);
     }
@@ -25,14 +26,15 @@ class Topic extends Component {
     }
 
     tabChangeHandle(event, tabIndex) {
-        this.appState.changeTabIndex(tabIndex);
+        const { appStore } = this.props;
+        appStore.changeTabIndex(tabIndex);
     }
 
     render() {
-        const { currentTabIndex } = this.appState;
+        const { appStore } = this.props;
         return (
             <div>
-                <Tabs value={currentTabIndex} onChange={this.tabChangeHandle}>
+                <Tabs fullWidth value={appStore.currentTabIndex} onChange={this.tabChangeHandle}>
                     <Tab label="全部" />
                     <Tab label="精华" />
                     <Tab label="分享" />
@@ -47,7 +49,7 @@ class Topic extends Component {
 
 
 Topic.propTypes = {
-    appState: PropTypes.instanceOf(AppState),
+    appStore: PropTypes.instanceOf(AppStore),
 };
 export default withStyles(theme => ({
     root: {

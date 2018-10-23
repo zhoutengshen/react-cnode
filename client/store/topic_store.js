@@ -41,6 +41,7 @@ class TopicStore {
     @observable
     topics = []
 
+
     @action
     getTopic() {
         const url = 'https://cnodejs.org/api/v1/topics';

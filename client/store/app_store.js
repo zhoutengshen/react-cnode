@@ -18,7 +18,7 @@ class AppStore {
         return this.currentTabIndex;
     }
 
-    @action
+    @action.bound
     changeTabIndex(tabIndex) {
         this.currentTabIndex = tabIndex;
     }

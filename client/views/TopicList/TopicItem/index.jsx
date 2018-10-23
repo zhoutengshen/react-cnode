@@ -14,13 +14,13 @@ const TopicItem = ({ classes, topic }) => {
         tab: topic.tab,
     };
     const secondary = {
-        replyCount: topic.replyCount,
-        visitCount: topic.visitCount,
+        replyCount: topic.reply_count,
+        visitCount: topic.visit_count,
     };
     return (
         <ListItem className={classes.root}>
             <ListItemAvatar>
-                <Avatar src={topic.avatarUrl} />
+                <Avatar src={topic.author.avatar_url} />
             </ListItemAvatar>
             <ListItemText
                 secondary={<Secondary {...secondary} />}

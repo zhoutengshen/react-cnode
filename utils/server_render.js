@@ -14,8 +14,8 @@ module.exports = (bundle, template, req, resp, next) => {
     const { TopicStore, AppStore } = bundle;
     let routerContext = {};
     let url = req.path;
-    const appState =new AppStore();
-    const topicStore =new TopicStore()
+    const appState = new AppStore();
+    const topicStore = new TopicStore()
 
     // Create a sheetsRegistry instance.
     const sheetsRegistry = new SheetsRegistry();
@@ -24,13 +24,13 @@ module.exports = (bundle, template, req, resp, next) => {
     const theme = createMuiTheme({//
         palette: {
             primary: indigo,
-            secondary:red
+            secondary: red
         },
         typography: {
             useNextVariants: true,
         },
     });
-    let app = serverEntry({ appState }, routerContext, url, sheetsRegistry,theme);
+    let app = serverEntry({ appState }, routerContext, url, sheetsRegistry, theme);
     reactAsyncBootstrpper(app)
         .then(() => {
             const serverRenderHtml = ssr.renderToString(app);
