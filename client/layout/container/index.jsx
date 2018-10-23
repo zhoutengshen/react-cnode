@@ -9,7 +9,7 @@ class Conteainer extends React.Component {
         return (
             <div>
                 <div className={classes.appBar} />
-                <Paper className={classes.paper} elevation={4}>
+                <Paper className={classes.paper} elevation={1}>
                     {children}
                 </Paper>
             </div>

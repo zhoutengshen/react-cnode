@@ -36,7 +36,7 @@ class TopicList extends Component {
         return (
             <div>
                 <Topic />
-                {appStore.currentTabIndex === 0 && <TopicItemContainer lists={topicStore.topics} />}
+                {appStore.currentTabIndex === 0 && <TopicItemContainer lists={topicStore.visibalTopics} />}
             </div>
         );
     }

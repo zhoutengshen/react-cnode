@@ -10,7 +10,7 @@ const TopicItemContainer = ({ lists }) => (
 );
 
 TopicItemContainer.propTypes = {
-    lists: PropTypes.array.isRequired,
+    lists: PropTypes.array,
 };
 
 export default TopicItemContainer;

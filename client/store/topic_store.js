@@ -1,7 +1,7 @@
 import {
     observable,
     // autorun,
-    // computed,
+    computed,
     action,
     extendObservable,
 } from 'mobx';
@@ -40,6 +40,13 @@ class TopicStore {
 
     @observable
     topics = []
+
+    @observable
+    itemCount = 20
+
+    @computed get visibalTopics() {
+        return this.topics.slice(0, this.topics.length > this.itemCount ? this.itemCount : this.topics.length);
+    }
 
 
     @action
