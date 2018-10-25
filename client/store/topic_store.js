@@ -31,8 +31,10 @@ class Topic {
     }
 }
 class TopicStore {
-    constructor(fatching = false) {
+    constructor({ fatching, topics, itemCount } = { fatching: false, topics: [], itemCount: 20 }) {
         this.fatching = fatching;
+        this.topics = topics.map(item => new Topic(item));
+        this.itemCount = itemCount;
     }
 
     @observable
@@ -51,19 +53,24 @@ class TopicStore {
 
     @action
     getTopic() {
-        const url = 'https://cnodejs.org/api/v1/topics';
-        this.fatching = true;
-        get(url).then((datas) => {
-            if (datas.success) {
-                const data = datas.data || [];
-                this.topics = data.map(item => new Topic(item));
-            } else {
-                console.log(datas.msg);
-            }
-            this.fatching = false;
-        }).catch((e) => {
-            console.log(e);
-            this.fatching = false;
+        return new Promise((resolve) => { // Promise对象会立即执行，当状态为resolved时触发then函数
+            const url = 'https://cnodejs.org/api/v1/topics';
+            this.fatching = true;
+            get(url).then((datas) => {
+                if (datas.success) {
+                    const data = datas.data || [];
+                    this.topics = data.map(item => new Topic(item));
+                    resolve(true);
+                } else {
+                    resolve(false);
+                    console.log(datas.msg);
+                }
+                this.fatching = false;
+            }).catch((e) => {
+                console.log(e);
+                this.fatching = false;
+                resolve(false);
+            });
         });
     }
 }

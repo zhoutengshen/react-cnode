@@ -13,9 +13,10 @@ import thme from './theme';
 const root = document.getElementById('app');
 const initialStates = window.__INITIAL_STATES__ || {};// eslint-disable-line
 
+
 const stores = {
-    appStore: new AppStore({ ...initialStates }),
-    topicStore: new TopicStore(),
+    appStore: new AppStore(initialStates.appStore),
+    topicStore: new TopicStore(initialStates.topicStore),
 };
 observable(stores);
 // 热加载方案2
@@ -35,14 +36,3 @@ const render = (Component) => {
     );
 };
 render(App);
-
-
-// // 热加载方案1
-// ReactDOM.render(<App />, root);
-// if (module.hot) { // 热加载发生时
-//     module.hot.accept('./views/App', () => {
-//         // eslint-disable-line 注释告诉eslint不要检查这一行
-//         const nextComponent = require('./views/App').default;// eslint-disable-line
-//         render(nextComponent);
-//     });
-// }

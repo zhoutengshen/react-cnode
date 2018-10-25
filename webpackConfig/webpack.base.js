@@ -1,9 +1,12 @@
 const path = require("path");
-
 const ROOT_PATH = path.join(__dirname, "../");
 const CLIENT_PATH = path.join(ROOT_PATH, "/client");
 const BUILD_PATH = path.join(ROOT_PATH, "/build");
+const OpenBrowserPlugin = require("open-browser-webpack-plugin");
+
+let port = process.env.port;
 module.exports = {
+    mode: "development",
     entry: {
         app: path.join(CLIENT_PATH, "/app.js")
     },
@@ -21,8 +24,8 @@ module.exports = {
                 exclude: [
                     path.resolve(__dirname, '../node_modules')
                 ],
-                options : {
-                    fix :true
+                options: {
+                    fix: true
                 }
             },
             {
@@ -32,6 +35,9 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new OpenBrowserPlugin({ url: `http://localhost:${port || 3000}` })
+    ],
     resolve: {
         extensions: ['.js', '.jsx', '.json'] //表示这几种文件的后缀名可以省略，按照从前到后的方式来进行补全
     }

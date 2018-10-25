@@ -8,7 +8,7 @@ import { AppStore, TopicStore } from './store/store';
 
 useStaticRendering(true);
 export default (stores, routerContext, url, registry, theme) => (
-    <Provider stores={{ ...stores }}>
+    <Provider stores={stores}>
         <JssProvider registry={registry}>
             <MuiThemeProvider theme={theme}>
                 <StaticRouter context={routerContext} location={url}>

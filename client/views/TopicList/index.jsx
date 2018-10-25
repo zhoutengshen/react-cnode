@@ -15,20 +15,19 @@ import TopicItemContainer from './TopicItemContainer';
 }))
 @observer
 class TopicList extends Component {
-    constructor(props) {
-        super(props);
-        this.bootstrap = this.bootstrap.bind(this);
-    }
-
-
     componentDidMount() {
         const { topicStore } = this.props;
         topicStore.getTopic();
     }
 
+    /* eslint-disable */
     // 服务端渲染异步数据
     bootstrap() {
+        const { topicStore } = this.props;
+        return topicStore.getTopic();//必须返回一个Promise 且resovled(true)
+
     }
+    /* eslint-enable */
 
     render() {
         const { appStore } = this.props;

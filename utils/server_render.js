@@ -1,5 +1,6 @@
 const reactAsyncBootstrpper = require("react-async-bootstrapper");
 const { SheetsRegistry } = require('jss');
+const stringify = require("javascript-stringify");
 const {
     createMuiTheme
 } = require('@material-ui/core/styles');
@@ -42,11 +43,10 @@ module.exports = (bundle, template, req, resp, next) => {
                 resp.send();
             };
             const css = sheetsRegistry.toString();
-
             //插入脚本,解决客户端数据
             let scriptStr = `
-                           <script>
-                           window.__INITIAL_STATES__ = ${JSON.stringify(stores)}
+                           <script> 
+                           window.__INITIAL_STATES__ = ${stringify(stores)}
                            <\/script>
                        `;
             template = template.replace("<!--script-->", scriptStr);
@@ -55,9 +55,7 @@ module.exports = (bundle, template, req, resp, next) => {
                     ${css}
                 <\/style>
             `);
-
             template = template.replace("<!--app-->", serverRenderHtml);
-            console.log(template)
             resp.send(template);
         })
         .catch((error) => {
