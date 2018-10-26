@@ -5,8 +5,9 @@ const BUILD_PATH = path.join(ROOT_PATH, "/build");
 const OpenBrowserPlugin = require("open-browser-webpack-plugin");
 
 let port = process.env.port;
+let nodeEnv = process.env.NODE_ENV || "development";
 module.exports = {
-    mode: "development",
+    mode: nodeEnv,
     entry: {
         app: path.join(CLIENT_PATH, "/app.js")
     },
