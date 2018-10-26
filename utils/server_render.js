@@ -15,6 +15,10 @@ module.exports = (bundle, template, req, resp, next) => {
     const { TopicStore, AppStore } = bundle;
     let routerContext = {};
     let url = req.path;
+    let location = {
+        pathname: url,
+        search: req.originalUrl.substring(req.originalUrl.indexOf("?"), req.originalUrl.length)
+    }
     const stores = {
         appStore: new AppStore(),
         topicStore: new TopicStore()
@@ -32,7 +36,7 @@ module.exports = (bundle, template, req, resp, next) => {
             useNextVariants: true,
         },
     });
-    let app = serverEntry({ ...stores }, routerContext, url, sheetsRegistry, theme);
+    let app = serverEntry({ ...stores }, routerContext, location, sheetsRegistry, theme);
     reactAsyncBootstrpper(app)
         .then(() => {
             const serverRenderHtml = ssr.renderToString(app);

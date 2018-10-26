@@ -7,11 +7,15 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Primary from './Primary';
 import Secondary from './Secondary';
+import { routerUrl } from '../../../defaultData';
 
-const TopicItem = ({ classes, topic }) => {
+
+const TopicItem = ({ classes, topic }, { router }) => {
+    const pathname = `${routerUrl.topicDetail}/${topic.id}`;
     const primary = {
         title: topic.title,
         tab: topic.tab,
+        pathname,
     };
     const secondary = {
         replyCount: topic.reply_count,
@@ -23,6 +27,11 @@ const TopicItem = ({ classes, topic }) => {
                 <Avatar src={topic.author.avatar_url} />
             </ListItemAvatar>
             <ListItemText
+                onClick={
+                    () => router.history.push({
+                        pathname,
+                    })
+                }
                 secondary={<Secondary {...secondary} />}
                 primary={<Primary {...primary} />}
             />
@@ -32,6 +41,9 @@ const TopicItem = ({ classes, topic }) => {
 TopicItem.propTypes = {
     classes: PropTypes.object.isRequired,
     topic: PropTypes.object.isRequired,
+};
+TopicItem.contextTypes = {// 必须context
+    router: PropTypes.object.isRequired,
 };
 export default withStyles({
     root: {},

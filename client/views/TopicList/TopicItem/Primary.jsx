@@ -2,16 +2,19 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
-const Primary = ({ classes, title, tab }) => (
+const Primary = ({
+    classes, title, tab, pathname,
+}) => (
     <div className={classes.root}>
         <span className={[classes.tab].join(' ')}>{tab}</span>
-        <span className={classes.title}>{title}</span>
+        <span className={classes.title}><a onClick={e => e.preventDefault()} className={classes.label} href={pathname}>{title}</a></span>
     </div>
 );
 Primary.propTypes = {
     classes: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
     tab: PropTypes.string.isRequired,
+    pathname: PropTypes.string.isRequired,
 };
 export default withStyles(theme => ({
     root: {
@@ -39,5 +42,9 @@ export default withStyles(theme => ({
     emphasis: {
         backgroundColor: '#80bd01',
         color: theme.palette.common.white,
+    },
+    label: {
+        color: theme.palette.text.primary,
+        textDecoration: 'none',
     },
 }))(Primary);

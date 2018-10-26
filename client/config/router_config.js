@@ -1,12 +1,15 @@
 import React from 'react';
 import {
     Route,
-    // Redirect,
+    Redirect,
 } from 'react-router-dom';
 import TopicList from '../views/TopicList';
-// const render = () => (
-//     <Redirect to="/list" />
-// );
+import { routerUrl } from '../defaultData';
+import TopicDetail from '../views/TopicDetails';
+
+const render = () => (
+    <Redirect to="/list" />
+);
 // export default () => [
 //     <Route path="/" render={render} key="one" exact />,
 //     <Route path="/details" component={TopicDetail} key="secound" />,
@@ -15,5 +18,7 @@ import TopicList from '../views/TopicList';
 // ];
 
 export default () => [
-    <Route path="/" component={TopicList} key="one-route" />,
+    <Route path={routerUrl.root} render={render} key="root-route" exact />,
+    <Route path={routerUrl.topicList} component={TopicList} key="list-route" />,
+    <Route path={`${routerUrl.topicDetail}/:id`} component={TopicDetail} key="detail-router" />,
 ];

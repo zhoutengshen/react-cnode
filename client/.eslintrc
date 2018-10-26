@@ -39,6 +39,7 @@
         ],
         "max-len": [
             0
-        ]
+        ],
+        "react/no-danger":[0]
     }
 }

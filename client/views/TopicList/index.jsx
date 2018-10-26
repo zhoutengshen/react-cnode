@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 // import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 import { inject, observer } from 'mobx-react';
 import {
-    AppStore,
     TopicStore,
 } from '../../store/store';
 import Topic from './Topic';
@@ -16,33 +16,43 @@ import TopicItemContainer from './TopicItemContainer';
 @observer
 class TopicList extends Component {
     componentDidMount() {
-        const { topicStore } = this.props;
-        topicStore.getTopic();
+        this.getData();
     }
 
-    /* eslint-disable */
+    componentWillReceiveProps(nextProps) { // props发生变化时触发
+        const { location } = this.props;
+        const { topicStore } = this.props;
+        if (location.search !== nextProps.location.search) {
+            const tab = queryString.parse(nextProps.location.search).tab || 'all';
+            topicStore.fetchTopic(tab);
+        }
+    }
+
+    getData() {
+        const { location } = this.props;
+        const tab = queryString.parse(location.search).tab || 'all';
+        const { topicStore } = this.props;
+        return topicStore.fetchTopic(tab);// 必须返回一个Promise 且resovled(true)
+    }
+
     // 服务端渲染异步数据
     bootstrap() {
-        const { topicStore } = this.props;
-        return topicStore.getTopic();//必须返回一个Promise 且resovled(true)
-
+        return this.getData();
     }
-    /* eslint-enable */
+
 
     render() {
-        const { appStore } = this.props;
         const { topicStore } = this.props;
         return (
             <div>
                 <Topic />
-                {appStore.currentTabIndex === 0 && <TopicItemContainer lists={topicStore.visibalTopics} />}
+                <TopicItemContainer lists={topicStore.visibalTopics} />
             </div>
         );
     }
 }
-
 TopicList.propTypes = {
-    appStore: PropTypes.instanceOf(AppStore),
     topicStore: PropTypes.instanceOf(TopicStore),
+    location: PropTypes.object.isRequired,
 };
 export default TopicList;

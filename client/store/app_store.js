@@ -6,8 +6,8 @@ import {
 } from 'mobx';
 
 class AppStore {
-    constructor({ tabIndex } = { tabIndex: 0 }) { // 没有传参数默认为 { count: 0, name: '老周' }
-        this.currentTabIndex = tabIndex || 0;
+    constructor({ tabIndex } = { tabIndex: 'all' }) { //
+        this.currentTabIndex = tabIndex || 'all';
     }
 
     @observable

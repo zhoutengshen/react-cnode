@@ -4,7 +4,6 @@ import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { observable } from 'mobx';
 import App from './views/App';
 import { AppStore, TopicStore } from './store/store';
 import thme from './theme';
@@ -18,7 +17,6 @@ const stores = {
     appStore: new AppStore(initialStates.appStore),
     topicStore: new TopicStore(initialStates.topicStore),
 };
-observable(stores);
 // 热加载方案2
 const render = (Component) => {
     const renderMethod = ReactDOM.render;

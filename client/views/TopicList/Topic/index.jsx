@@ -1,61 +1,59 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
+import { withStyles } from '@material-ui/core/styles';
+import queryString from 'query-string';
 import Tab from '@material-ui/core/Tab';
-import {
-    inject,
-    observer,
-} from 'mobx-react';
 import PropTypes from 'prop-types';
-import { AppStore } from '../../../store/store';
+import { tabs } from '../../../defaultData';
 
-
-@inject(({ stores }) => ({
-    appStore: stores.appStore,
-}))
-@observer
 class Topic extends Component {
+    static contextTypes = {
+        router: PropTypes.object,
+    }
+
+
     constructor(props) {
         super(props);
         this.tabChangeHandle = this.tabChangeHandle.bind(this);
-        this.bootstrap = this.bootstrap.bind(this);
     }
 
-    // 服务端渲染异步数据
-    bootstrap() {
-    }
-
-    tabChangeHandle(event, tabIndex) {
-        const { appStore } = this.props;
-        appStore.changeTabIndex(tabIndex);
+    tabChangeHandle(event, val) {
+        const { router } = this.context;
+        router.history.push({
+            ...router.history.location,
+            search: `?tab=${val}`,
+        });
     }
 
     render() {
-        const { appStore } = this.props;
+        const { router } = this.context;
+        const { classes } = this.props;
+        const { pathname, search } = router.history.location;
+        const tab = queryString.parse(search).tab || Object.keys(tabs)[0];
         return (
             <div>
-                <Tabs fullWidth value={appStore.currentTabIndex} onChange={this.tabChangeHandle}>
-                    <Tab label="全部" />
-                    <Tab label="精华" />
-                    <Tab label="分享" />
-                    <Tab label="问答" />
-                    <Tab label="招聘" />
-                    <Tab label="测试" />
+                <Tabs fullWidth value={tab} onChange={this.tabChangeHandle}>
+                    {
+                        Object.keys(tabs).map(val => (
+                            <Tab
+                                label={<a className={classes.label} onClick={e => e.preventDefault()} href={`${pathname}?tab=${val}`}>{tabs[val]}</a>
+                                }
+                                value={val}
+                                key={val}
+                            />
+                        ))
+                    }
                 </Tabs>
             </div>
         );
     }
 }
-
-
 Topic.propTypes = {
-    appStore: PropTypes.instanceOf(AppStore),
+    classes: PropTypes.object.isRequired,
 };
 export default withStyles(theme => ({
-    root: {
-        primary: theme.palette.primary,
-    },
-    tabRoot: {
-        minWidth: 100,
+    label: {
+        color: theme.palette.text.primary,
+        textDecoration: 'none',
     },
 }))(Topic);

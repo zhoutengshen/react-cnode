@@ -4213,7 +4213,7 @@ marked-terminal@^3.0.0:
     lodash.assign "^4.2.0"
     node-emoji "^1.4.1"
 
-marked@^0.5.0:
+marked@^0.5.0, marked@^0.5.1:
   version "0.5.1"
   resolved "http://registry.npm.taobao.org/marked/download/marked-0.5.1.tgz#062f43b88b02ee80901e8e8d8e6a620ddb3aa752"
   integrity sha1-Bi9DuIsC7oCQHo6NjmpiDds6p1I=
