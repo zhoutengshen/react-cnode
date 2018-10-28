@@ -36,6 +36,7 @@ class Topic extends Component {
                     {
                         Object.keys(tabs).map(val => (
                             <Tab
+                                className={classes.tab}
                                 label={<a className={classes.label} onClick={e => e.preventDefault()} href={`${pathname}?tab=${val}`}>{tabs[val]}</a>
                                 }
                                 value={val}
@@ -55,5 +56,8 @@ export default withStyles(theme => ({
     label: {
         color: theme.palette.text.primary,
         textDecoration: 'none',
+    },
+    tab: {
+        minWidth: 80,
     },
 }))(Topic);

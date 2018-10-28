@@ -5,6 +5,7 @@ import {
 } from 'mobx-react';
 import PropTypes from 'prop-types';
 import marked from 'marked';
+import { withStyles } from '@material-ui/core/styles';
 import { TopicStore } from '../../store/store';
 
 @inject(({ stores }) => ({
@@ -47,11 +48,16 @@ class TopicDetails extends Component {
 
     render() {
         return (
-            <div dangerouslySetInnerHTML={this.createMarkup()} />
+            <div>
+
+                <div dangerouslySetInnerHTML={this.createMarkup()} />
+            </div>
         );
     }
 }
 TopicDetails.propTypes = {
     topicStore: PropTypes.instanceOf(TopicStore),
 };
-export default TopicDetails;
+export default withStyles(() => ({
+
+}))(TopicDetails);
