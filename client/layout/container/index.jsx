@@ -17,13 +17,12 @@ class Conteainer extends React.Component {
                 justify="center"
                 alignItems="center"
             >
-                <Grid item md={6} xs={12} className={classes.root}>
+                <Grid item md={6} className={classes.root}>
                     <div className={classes.appBar} />
                     <Paper className={classes.paper} elevation={1}>
                         {children}
                     </Paper>
                 </Grid>
-                <Grid item md={4} />
             </Grid>
         );
     }
