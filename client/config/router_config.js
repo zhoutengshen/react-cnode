@@ -6,6 +6,7 @@ import {
 import TopicList from '../views/TopicList';
 import { routerUrl } from '../defaultData';
 import TopicDetail from '../views/TopicDetails';
+import User from '../views/user';
 
 const render = () => (
     <Redirect to="/list" />
@@ -21,4 +22,5 @@ export default () => [
     <Route path={routerUrl.root} render={render} key="root-route" exact />,
     <Route path={routerUrl.topicList} component={TopicList} key="list-route" />,
     <Route path={`${routerUrl.topicDetail}/:id`} component={TopicDetail} key="detail-router" />,
+    <Route path={routerUrl.user} component={User} key="user-router" />,
 ];

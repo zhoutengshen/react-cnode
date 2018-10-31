@@ -6,9 +6,9 @@ import HomeIcon from '@material-ui/icons/Home';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import ProtoType from 'prop-types';
-// import Button from "@material-ui/core/Button";
+import { Link } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-// import SearchIcon from "@material-ui/icons/Search";
+import { routerUrl } from '../../defaultData';
 
 
 class Header extends React.Component {
@@ -31,10 +31,11 @@ class Header extends React.Component {
                         <HomeIcon />
                     </IconButton>
                     <Typography className={classes.title} color="inherit" variant="h6">My CNode</Typography>
-                    <IconButton />
-                    <IconButton color="inherit">
-                        <AccountCircle />
-                    </IconButton>
+                    <Link className={classes.link} to={routerUrl.user}>
+                        <IconButton color="inherit">
+                            <AccountCircle />
+                        </IconButton>
+                    </Link>
                 </Toolbar>
             </AppBar>
         );
@@ -52,5 +53,8 @@ export default withStyles(theme => ({
     title: {
         flexGrow: 1,
         marginLeft: theme.spacing.unit * 1,
+    },
+    link: {
+        color: 'inherit',
     },
 }))(Header);
