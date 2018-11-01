@@ -12,6 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Grid from '@material-ui/core/Grid';
 import { TopicStore } from '../../store/store';
 
 @inject(({ stores }) => ({
@@ -51,37 +52,47 @@ class TopicDetails extends Component {
         const topicDetail = topicStore.topicDetails.find(val => val.id === this.getTopicId()) || {};
         const replies = topicDetail.replies || [];
         return (
-            <div className={classes.root}>
-                <Typography className={classes.typographyRoot} color="inherit" align="center" variant="h4">{topicDetail.title}</Typography>
-                <hr />
-                <p dangerouslySetInnerHTML={{ __html: marked(topicDetail.content || '') }} />
+            <Grid
+                container
+                justify="center"
+                alignContent="center"
+                alignItems="center"
+            >
+                <Grid item md={6}>
+                    <div className={classes.root}>
+                        <Typography className={classes.typographyRoot} color="inherit" align="center" variant="h4">{topicDetail.title}</Typography>
+                        <hr />
+                        <p dangerouslySetInnerHTML={{ __html: marked(topicDetail.content || '') }} />
 
-                <div className={classes.comment}>
-                    <span>
-                        {`${replies.length}条评论`}
-                    </span>
-                    <List>
-                        {
-                            replies.map(item => (
-                                <div key={item.id}>
-                                    <ListItem>
-                                        <ListItemIcon>
-                                            <Avatar src={item.author.avatar_url} />
-                                        </ListItemIcon>
-                                        <ListItemText primary={item.author.loginname} secondary={item.create_at} />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemIcon>
-                                            <Avatar />
-                                        </ListItemIcon>
-                                        <Typography variant="h6">{item.content}</Typography>
-                                    </ListItem>
-                                </div>
-                            ))
-                        }
-                    </List>
-                </div>
-            </div>);
+                        <div className={classes.comment}>
+                            <span>
+                                {`${replies.length}条评论`}
+                            </span>
+                            <List>
+                                {
+                                    replies.map(item => (
+                                        <div key={item.id}>
+                                            <ListItem>
+                                                <ListItemIcon>
+                                                    <Avatar src={item.author.avatar_url} />
+                                                </ListItemIcon>
+                                                <ListItemText primary={item.author.loginname} secondary={item.create_at} />
+                                            </ListItem>
+                                            <ListItem>
+                                                <ListItemIcon>
+                                                    <Avatar />
+                                                </ListItemIcon>
+                                                <Typography variant="h6">{item.content}</Typography>
+                                            </ListItem>
+                                        </div>
+                                    ))
+                                }
+                            </List>
+                        </div>
+                    </div>
+                </Grid>
+            </Grid>
+        );
     }
 }
 TopicDetails.propTypes = {

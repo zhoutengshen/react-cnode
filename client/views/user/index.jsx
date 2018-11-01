@@ -1,17 +1,34 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 class User extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <div className={classes.root}>
-                <div className={classes.avatar}>
-                    <img alt="avatar" src="https://avatars2.githubusercontent.com/u/16321757?v=4&s=120" />
-                </div>
-                <div />
-            </div>
+            <Grid
+                container
+                alignContent="center"
+                alignItems="center"
+                justify="center"
+            >
+                <Grid item md={12}>
+                    <Paper className={classes.main}>
+                        <img className={classes.avatar} alt="avatar" src="https://avatars2.githubusercontent.com/u/16321757?v=4&s=120" />
+                        <div>
+                            <TextField
+                                fullWidth
+                                label="Cnode accesstoken"
+                            />
+                        </div>
+                        <Button fullWidth className={classes.button} variant="contained" color="primary">登录</Button>
+                    </Paper>
+                </Grid>
+            </Grid>
         );
     }
 }
@@ -20,29 +37,23 @@ User.propTypes = {
 };
 export default withStyles(theme => ({
     root: {
-        textAlign: 'center',
-        margin: 'auto',
-        position: 'absolute',
-        background: theme.palette.common.white,
-        width: 500,
-        height: 500,
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        borderRadius: '50px',
-        '& div': {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
+
+    },
+    main: {
+        display: 'block',
+        margin: '50px auto',
+        padding: 40,
+        height: 200,
+        width: 300,
     },
     avatar: {
-        '& img': {
-            display: 'flex',
-            width: 64,
-            height: 64,
-            borderRadius: '50%',
-        },
+        display: 'block',
+        width: 64,
+        height: 64,
+        margin: '0 auto',
+        borderRadius: '50%',
+    },
+    button: {
+        margin: `${theme.spacing.unit * 2}px 0`,
     },
 }))(User);

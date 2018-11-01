@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import { inject, observer } from 'mobx-react';
+import Grid from '@material-ui/core/Grid';
 import {
     TopicStore,
 } from '../../store/store';
@@ -44,10 +45,17 @@ class TopicList extends Component {
     render() {
         const { topicStore } = this.props;
         return (
-            <div>
-                <Topic />
-                <TopicItemContainer lists={topicStore.visibalTopics} />
-            </div>
+            <Grid
+                container
+                justify="center"
+                alignItems="center"
+                alignContent="center"
+            >
+                <Grid item md={6}>
+                    <Topic />
+                    <TopicItemContainer lists={topicStore.visibalTopics} />
+                </Grid>
+            </Grid>
         );
     }
 }
