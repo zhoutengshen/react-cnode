@@ -36,3 +36,8 @@ export const dataSourceUrl = {
     topicDetail: 'https://cnodejs.org/api/v1/topic',
     userInfo: 'https://cnodejs.org/api/v1/accesstoken ',
 };
+export const routerLevel = {
+    all: 'all',
+    loginUser: 'loginUser',
+    admin: 'admin',
+};

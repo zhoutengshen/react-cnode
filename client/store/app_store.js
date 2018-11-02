@@ -8,13 +8,21 @@ import { dataSourceUrl } from '../defaultData';
 import { post } from '../utils/http';
 
 class AppStore {
-    constructor({ userInfo } = { userInfo: {} }) {
+    constructor({ userInfo, logined, isAdmin } = { userInfo: {}, logined: false, isAdmin: false }) {
         this.userInfo = userInfo;
+        this.logined = logined;
+        this.isAdmin = isAdmin;
         this.fetchUserInfo = this.fetchUserInfo.bind(this);
     }
 
     @observable
     userInfo = {}
+
+    @observable
+    logined = false
+
+    @observable
+    isAdmin = false
 
     @action
     fetchUserInfo(accesstoken) {

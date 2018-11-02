@@ -48,7 +48,6 @@ class TopicStore {
     fetchTopic(tab = tabs.all) {
         return new Promise((resolve, reject) => { // Promise对象会立即执行，当状态为resolved时触发then函数
             const url = dataSourceUrl.topicList;
-            console.log(url);
             this.fatching = true;
             get(url, { tab }).then((datas) => {
                 if (datas.success) {
