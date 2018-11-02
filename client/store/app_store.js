@@ -1,26 +1,35 @@
 import {
     observable,
     // autorun,
-    computed,
+    // computed,
     action,
 } from 'mobx';
+import { dataSourceUrl } from '../defaultData';
+import { post } from '../utils/http';
 
 class AppStore {
-    constructor({ tabIndex } = { tabIndex: 'all' }) { //
-        this.currentTabIndex = tabIndex || 'all';
+    constructor({ userInfo } = { userInfo: {} }) {
+        this.userInfo = userInfo;
+        this.fetchUserInfo = this.fetchUserInfo.bind(this);
     }
 
     @observable
-    currentTabIndex;
+    userInfo = {}
 
-
-    @computed get msg() {
-        return this.currentTabIndex;
-    }
-
-    @action.bound
-    changeTabIndex(tabIndex) {
-        this.currentTabIndex = tabIndex;
+    @action
+    fetchUserInfo(accesstoken) {
+        const url = dataSourceUrl.userInfo;
+        const that = this;
+        return new Promise((resolve, rejects) => {
+            post(url, { accesstoken }).then((uinfo) => {
+                if (uinfo.success) {
+                    that.userInfo = uinfo;
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            }).catch(rejects);
+        });
     }
 }
 export default AppStore;

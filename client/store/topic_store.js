@@ -47,7 +47,8 @@ class TopicStore {
     @action
     fetchTopic(tab = tabs.all) {
         return new Promise((resolve, reject) => { // Promise对象会立即执行，当状态为resolved时触发then函数
-            const url = dataSourceUrl.topics;
+            const url = dataSourceUrl.topicList;
+            console.log(url);
             this.fatching = true;
             get(url, { tab }).then((datas) => {
                 if (datas.success) {
@@ -69,7 +70,7 @@ class TopicStore {
     @action
     fetchTopicDetail(id) {
         return new Promise((resolve, reject) => {
-            const url = `${`${dataSourceUrl.detail}/${id}`}`;
+            const url = `${`${dataSourceUrl.topicDetail}/${id}`}`;
             this.fatching = true;
             get(url, {
                 mdrender: false,

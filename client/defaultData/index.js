@@ -27,10 +27,12 @@ export const routerUrl = {
     root: '/',
     topicList: '/list',
     topicDetail: '/detail',
-    user: '/user',
+    signIn: '/signIn',
+    userInfo: '/userinfo',
+
 };
 export const dataSourceUrl = {
-    topics: 'https://cnodejs.org/api/v1/topics',
-    detail: 'https://cnodejs.org/api/v1/topic',
-
+    topicList: 'https://cnodejs.org/api/v1/topics',
+    topicDetail: 'https://cnodejs.org/api/v1/topic',
+    userInfo: 'https://cnodejs.org/api/v1/accesstoken ',
 };

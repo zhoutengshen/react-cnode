@@ -23,9 +23,21 @@ const get = (url = '', params = {}) => {
     });
 };
 
-const post = () => {
-
-};
+const post = (url, data) => new Promise((resolve, reject) => {
+    axios.post(url, data).then((resp) => {
+        if (resp.data.success) {
+            resolve({
+                ...resp.data,
+                success: true,
+            });
+        } else {
+            resolve({
+                success: false,
+                msg: resp.statusText,
+            });
+        }
+    }).catch(reject);
+});
 
 export {
     post,

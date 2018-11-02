@@ -27,17 +27,13 @@ class Header extends React.Component {
         return (
             <AppBar position="fixed" className={classes.root}>
                 <Toolbar color="inherit">
-                    <Link className={classes.link} to={routerUrl.root}>
-                        <IconButton color="inherit" onClick={this.homeBtnClick}>
-                            <HomeIcon />
-                        </IconButton>
-                    </Link>
+                    <IconButton component={Link} to={routerUrl.root} color="inherit" onClick={this.homeBtnClick}>
+                        <HomeIcon />
+                    </IconButton>
                     <Typography className={classes.title} color="inherit" variant="h6">My CNode</Typography>
-                    <Link className={classes.link} to={routerUrl.user}>
-                        <IconButton color="inherit">
-                            <AccountCircle />
-                        </IconButton>
-                    </Link>
+                    <IconButton component={Link} to={routerUrl.signIn} color="inherit">
+                        <AccountCircle />
+                    </IconButton>
                 </Toolbar>
             </AppBar>
         );
