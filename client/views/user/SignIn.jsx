@@ -87,7 +87,6 @@ class SignIn extends React.Component {
         const { appStore } = this.props;
         const { fetchUserInfo } = appStore;
         fetchUserInfo(val).then((isAcceped) => {
-            console.log(isAcceped);
             if (isAcceped) {
                 const { history } = this.props;
                 history.push({

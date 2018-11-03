@@ -32,6 +32,7 @@ class AppStore {
             post(url, { accesstoken }).then((uinfo) => {
                 if (uinfo.success) {
                     that.userInfo = uinfo;
+                    this.logined = true;
                     resolve(true);
                 } else {
                     resolve(false);
