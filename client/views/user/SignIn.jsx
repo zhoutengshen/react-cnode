@@ -17,13 +17,13 @@ import { inject, observer } from 'mobx-react';
 import { routerUrl } from '../../defaultData/index';
 
 
-const MyFormControlLabel = ({ classes, signInType }) => (
+const MyFormControlLabel = ({ classes, signInType, text }) => (
     <div className={classes.controlLabel}>
         <div>
             <FormControlLabel label="记住密码" control={<Checkbox value="remember" color="primary" />} />
         </div>
         <div style={{ flexDirection: 'row-reverse' }}>
-            <Button component={Link} to={`${routerUrl.signIn}?signInType=${signInType}`}>{signInType}</Button>
+            <Button component={Link} to={`${routerUrl.signIn}?signInType=${signInType}`}>{text}</Button>
         </div>
     </div>
 );
@@ -42,7 +42,7 @@ const SingInByAccount = ({ classes }) => (
                 autoComplete="current-password"
             />
         </FormControl>
-        <MyFormControlLabel classes={classes} signInType="accesstokenSingIn" />
+        <MyFormControlLabel classes={classes} signInType="accesstokenSingIn" text="token登录" />
         <Button
             type="submit"
             fullWidth
@@ -63,13 +63,17 @@ const SingInByAccesstoken = ({ classes, getAccesstokenHandle }) => {
                 <InputLabel htmlFor="accesstoken">accesstoken</InputLabel>
                 <Input inputRef={(el) => { accesstokenIputRef = el; }} autoFocus id="accesstoken" name="accesstoken" />
             </FormControl>
-            <MyFormControlLabel classes={classes} signInType="accountSingIn" />
+            <MyFormControlLabel classes={classes} signInType="accountSingIn" text="账号登录" />
             <Button
+                type="submit"
                 variant="contained"
                 color="primary"
                 fullWidth
                 className={classes.submit}
-                onClick={() => getAccesstokenHandle(accesstokenIputRef.value)}
+                onClick={(e) => {
+                    e.preventDefault();
+                    getAccesstokenHandle(accesstokenIputRef.value);
+                }}
             >
                 {'SingIn'}
             </Button>
@@ -135,6 +139,7 @@ SingInByAccesstoken.propTypes = {
 MyFormControlLabel.propTypes = {
     classes: PropTypes.object.isRequired,
     signInType: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
 };
 export default withStyles(theme => ({
     layout: {

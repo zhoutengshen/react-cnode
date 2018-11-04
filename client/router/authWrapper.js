@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import hoistStatics from 'hoist-non-react-statics';
 
 const defaults = {
@@ -9,7 +10,9 @@ const defaults = {
 };
 
 export default (args) => {
-    const { AuthenticatingComponent, FailureComponent, wrapperDisplayName } = {
+    const {
+        AuthenticatingComponent, FailureComponent, wrapperDisplayName, redirectPath,
+    } = {
         ...defaults,
         ...args,
     };
@@ -19,26 +22,28 @@ export default (args) => {
         const displayName = DecoratedComponent.displayName || DecoratedComponent.name || 'Component';
 
         class UserAuthWrapper extends Component {
-      static displayName = `${wrapperDisplayName}(${displayName})`;
+            static displayName = `${wrapperDisplayName}(${displayName})`;
 
-      static propTypes = {
-          isAuthenticated: PropTypes.bool,
-          isAuthenticating: PropTypes.bool,
-      };
+            static propTypes = {
+                isAuthenticated: PropTypes.bool,
+                isAuthenticating: PropTypes.bool,
+            };
 
-      static defaultProps = {
-          isAuthenticating: false,
-      }
+            static defaultProps = {
+                isAuthenticating: false,
+            }
 
-      render() {
-          const { isAuthenticated, isAuthenticating } = this.props;
-          if (isAuthenticated) {
-              return <DecoratedComponent {...this.props} />;
-          } if (isAuthenticating) {
-              return <AuthenticatingComponent {...this.props} />;
-          }
-          return <FailureComponent {...this.props} />;
-      }
+            render() {
+                const { isAuthenticated, isAuthenticating } = this.props;
+                if (isAuthenticated) {
+                    return <DecoratedComponent {...this.props} />;
+                } if (isAuthenticating) {
+                    return <AuthenticatingComponent {...this.props} />;
+                } if (redirectPath) {
+                    return <Redirect to={redirectPath} />;
+                }
+                return <FailureComponent {...this.props} />;
+            }
         }
 
         return hoistStatics(UserAuthWrapper, DecoratedComponent);
