@@ -35,6 +35,8 @@ export const dataSourceUrl = {
     topicList: 'https://cnodejs.org/api/v1/topics',
     topicDetail: 'https://cnodejs.org/api/v1/topic',
     userInfo: 'https://cnodejs.org/api/v1/accesstoken ',
+    topicCollect: 'https://cnodejs.org/api/v1/topic_collect',
+    delCollect: 'https://cnodejs.org/api/v1/topic_collect/de_collect',
 };
 export const routerLevel = {
     all: 'all',

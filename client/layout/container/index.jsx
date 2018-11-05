@@ -35,12 +35,7 @@ export default withStyles(theme => ({
         height: `calc(100% - ${theme.spacing.unit * 2}px)`,
         maxHeight: `calc(100% - ${theme.spacing.unit * 2}px)`,
         overflow: 'auto',
-        '& ::-webkit-scrollbar':
-        {
-            width: 16,
-            height: 16,
-            'background-color': '#F5F5F5',
-        },
+
     },
     appBar: {
         height: theme.mixins.toolbar.minHeight,
