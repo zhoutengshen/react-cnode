@@ -9,9 +9,9 @@ import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import Grow from '@material-ui/core/Grow';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { inject, observer } from 'mobx-react';
-import Grow from '@material-ui/core/Grow';
 
 const styles = {
     root: {
