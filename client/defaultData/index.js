@@ -10,6 +10,7 @@ export const defaultTopic = {
     reply_count: 0,
     visit_count: 0,
     create_at: '0',
+    collect: false,
     author: {
         loginname: '',
         avatar_url: '',

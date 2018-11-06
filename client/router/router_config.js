@@ -6,8 +6,10 @@ import {
 import TopicList from '../views/TopicList';
 import { routerUrl } from '../defaultData';
 import TopicDetail from '../views/TopicDetails';
-import SignIn from '../views/user/SignIn';
-import UserInfo from '../views/user/UserInfo';
+import {
+    AuthedUserInfo,
+    AuthedSignIn,
+} from './authedComponent';
 
 const render = () => (
     <Redirect to="/list" />
@@ -23,6 +25,6 @@ export default () => [
     <Route path={routerUrl.root} render={render} key="root-route" exact />,
     <Route path={routerUrl.topicList} component={TopicList} key="list-route" />,
     <Route path={`${routerUrl.topicDetail}/:id`} component={TopicDetail} key="detail-router" />,
-    <Route path={routerUrl.signIn} component={SignIn} key="signIn-router" />,
-    <Route path={routerUrl.userInfo} component={UserInfo} key="userInfo-router" />,
+    <Route path={routerUrl.signIn} component={AuthedSignIn} key="signIn-router" />,
+    <Route path={routerUrl.userInfo} component={AuthedUserInfo} key="userInfo-router" />,
 ];

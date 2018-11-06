@@ -19,7 +19,7 @@ class TopicStore {
         fatching, topics, itemCount, topicDetails, topicCollect,
     } =
     {
-        fatching: false, topics: [], itemCount: 20, topicDetails: [], topicCollect: [],
+        fatching: false, topics: [], itemCount: 1, topicDetails: [], topicCollect: [],
     }) {
         this.fatching = fatching;
         this.topics = topics.map(item => new Topic(item));
@@ -74,8 +74,13 @@ class TopicStore {
             get(url, {}).then((datas) => {
                 if (datas.success) {
                     const data = datas.data || [];
-                    this.topicCollect = data;
                     this.topicCollect = data.map(item => item);
+                    this.topicCollect.forEach((val) => { // 找出收藏的项
+                        const arm = this.topics.find(topic => topic.id === val.id);
+                        if (arm) {
+                            arm.collect = true;
+                        }
+                    });
                     resolve(true);
                 } else {
                     resolve(false);
@@ -94,7 +99,8 @@ class TopicStore {
         return new Promise((resolve, reject) => { // Promise对象会立即执行，当状态为resolved时触发then函数
             const url = dataSourceUrl.topicList;
             this.fatching = true;
-            get(url, { tab }).then((datas) => {
+            const limit = 1;
+            get(url, { tab, limit }).then((datas) => {
                 if (datas.success) {
                     const data = datas.data || [];
                     this.topics = data.map(item => new Topic(item));

@@ -61,9 +61,9 @@ class TopicDetails extends Component {
                 <Grid item md={6}>
                     <div className={classes.root}>
                         <Typography className={classes.typographyRoot} color="inherit" align="center" variant="h4">{topicDetail.title}</Typography>
+
                         <hr />
                         <p dangerouslySetInnerHTML={{ __html: marked(topicDetail.content || '') }} />
-
                         <div className={classes.comment}>
                             <span>
                                 {`${replies.length}条评论`}
