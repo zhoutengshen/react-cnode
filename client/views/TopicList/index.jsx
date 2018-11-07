@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import {
     TopicStore,
 } from '../../store/store';
-import Topic from './Topic';
+import TopicTab from './TopicTab';
 import TopicItemContainer from './TopicItemContainer';
 
 @inject(({ stores }) => ({
@@ -52,7 +52,7 @@ class TopicList extends Component {
                 alignContent="center"
             >
                 <Grid item md={6}>
-                    <Topic />
+                    <TopicTab />
                     <TopicItemContainer lists={topicStore.visibalTopics} />
                 </Grid>
             </Grid>

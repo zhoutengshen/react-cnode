@@ -30,7 +30,6 @@ export const routerUrl = {
     topicDetail: '/detail',
     signIn: '/signIn',
     userInfo: '/userinfo',
-
 };
 export const dataSourceUrl = {
     topicList: 'https://cnodejs.org/api/v1/topics',
@@ -38,6 +37,7 @@ export const dataSourceUrl = {
     userInfo: 'https://cnodejs.org/api/v1/accesstoken ',
     topicCollect: 'https://cnodejs.org/api/v1/topic_collect',
     delCollect: 'https://cnodejs.org/api/v1/topic_collect/de_collect',
+    collect: 'https://cnodejs.org/api/v1/topic_collect/collect',
 };
 export const routerLevel = {
     all: 'all',

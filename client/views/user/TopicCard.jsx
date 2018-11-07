@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Grow from '@material-ui/core/Grow';
+import Tooltip from '@material-ui/core/Tooltip';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { inject, observer } from 'mobx-react';
 
@@ -88,12 +89,15 @@ class TopicCard extends React.Component {
                             </CardContent>
                         </CardActionArea>
                         <CardActions>
-                            <IconButton
-                                onClick={delCollectHandle}
-                                aria-label="Add to favorites"
-                            >
-                                <FavoriteIcon />
-                            </IconButton>
+                            <Tooltip title="取消收藏" placement="top">
+                                <IconButton
+                                    color="secondary"
+                                    onClick={delCollectHandle}
+                                    aria-label="Add to favorites"
+                                >
+                                    <FavoriteIcon />
+                                </IconButton>
+                            </Tooltip>
                         </CardActions>
                     </Card>
 

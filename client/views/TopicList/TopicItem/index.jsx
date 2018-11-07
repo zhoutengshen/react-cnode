@@ -16,7 +16,6 @@ import { routerUrl } from '../../../defaultData';
 
 
 const TopicItem = ({ classes, topic }, { router }) => {
-    console.log(topic);
     const pathname = `${routerUrl.topicDetail}/${topic.id}`;
     const primary = {
         title: topic.title,
@@ -28,6 +27,9 @@ const TopicItem = ({ classes, topic }, { router }) => {
         visitCount: topic.visit_count,
     };
     const isCollect = topic.collect;// 是否收藏
+    const toggleCollectHandel = () => {
+        topic.toggleCollectHandel(topic.id);
+    };// 取消收藏，收藏
     return (
         <ListItem className={classes.root}>
             <ListItemAvatar>
@@ -43,8 +45,16 @@ const TopicItem = ({ classes, topic }, { router }) => {
                 primary={<Primary {...primary} />}
             />
             <ListItemSecondaryAction>
-                <Tooltip placement="top" TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={isCollect ? '取消收藏' : '收藏'}>
-                    <IconButton aria-label="Comments">
+                <Tooltip
+                    placement="top"
+                    TransitionComponent={Fade}
+                    TransitionProps={{ timeout: 600 }}
+                    title={isCollect ? '取消收藏' : '收藏'}
+                >
+                    <IconButton
+                        aria-label="Comments"
+                        onClick={toggleCollectHandel}
+                    >
                         <FavoriteIcon color={isCollect ? 'secondary' : 'inherit'} />
                     </IconButton>
                 </Tooltip>
