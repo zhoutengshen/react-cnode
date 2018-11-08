@@ -14,6 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Grid from '@material-ui/core/Grid';
 import { TopicStore } from '../../store/store';
+import Comment from './Comment';
 
 @inject(({ stores }) => ({
     topicStore: stores.topicStore,
@@ -88,6 +89,9 @@ class TopicDetails extends Component {
                                     ))
                                 }
                             </List>
+                        </div>
+                        <div>
+                            <Comment />
                         </div>
                     </div>
                 </Grid>
