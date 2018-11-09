@@ -83,17 +83,15 @@ const SingInByAccesstoken = ({ classes, getAccesstokenHandle }) => {
 @inject(({ stores }) => (
     {
         appStore: stores.appStore,
-        topicStore: stores.topicStore,
     }
 ))
 @observer
 class SignIn extends React.Component {
     getAccesstokenHandle = (val) => {
-        const { appStore, topicStore } = this.props;
+        const { appStore } = this.props;
         const { fetchUserInfo } = appStore;
         fetchUserInfo(val).then((isAcceped) => {
             if (isAcceped) {
-                topicStore.fetchTopicCollect(appStore.userInfo.loginname);// 获取收藏列表
                 const { history } = this.props;
                 history.push({
                     pathname: routerUrl.userInfo,
@@ -128,7 +126,6 @@ SignIn.propTypes = {
     classes: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     appStore: PropTypes.object,
-    topicStore: PropTypes.object,
     history: PropTypes.object.isRequired,
 };
 SingInByAccount.propTypes = {

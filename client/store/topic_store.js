@@ -1,13 +1,10 @@
 import {
-    observable,
-    // autorun,
-    computed,
-    action,
-    // extendObservable,
+    observable, computed, action,
 } from 'mobx';
 import { get, post } from '../utils/http';
 import { defaultTopic, tabs, dataSourceUrl } from '../defaultData';
 
+// configure({ enforceActions: true });
 class Topic {
     constructor(topc) {
         Object.assign(this, defaultTopic);
@@ -16,14 +13,25 @@ class Topic {
 }
 class TopicStore {
     constructor({
-        fatching, topics, itemCount, topicDetails, topicCollect,
+        fatching, topics, topicsItemCount, topicDetails, topicCollect,
     } =
     {
-        fatching: false, topics: [], itemCount: 20, topicDetails: [], topicCollect: [],
+        fatching: false,
+        topics: {
+            all: [],
+            good: [],
+            share: [],
+            ask: [],
+            job: [],
+            dev: [],
+        },
+        topicsItemCount: 10,
+        topicDetails: [],
+        topicCollect: [],
     }) {
         this.fatching = fatching;
-        this.topics = topics.map(item => new Topic(item));
-        this.itemCount = itemCount;
+        this.topics = topics;
+        this.topicsItemCount = topicsItemCount;
         this.topicDetails = topicDetails;
         this.topicCollect = topicCollect;
     }
@@ -32,7 +40,9 @@ class TopicStore {
     fatching = false
 
     @observable
-    topics = []
+    topics = {
+    }
+
 
     @observable
     topicCollect = []
@@ -41,12 +51,23 @@ class TopicStore {
     topicDetails = []
 
     @observable
-    itemCount = 0
+    topicsItemCount = 0
+
+    @observable
+    collectItemCount = 6
+
+    @observable
+    tab = 'all'
+
+    @computed
+    get visibalTopicCollect() {
+        return this.topicCollect.filter((val, index) => index < this.collectItemCount);
+    }
 
     @computed
     get visibalTopics() { // 按需显示
-        const startIndex = this.topics.length > this.itemCount ? this.itemCount : this.topics.length;
-        const someTopics = this.topics.slice(0, startIndex);
+        const startIndex = this.topics[`${this.tab}`].length > this.topicsItemCount ? this.topicsItemCount : this.topics[`${this.tab}`].length;
+        const someTopics = this.topics[`${this.tab}`].slice(0, startIndex);
         // 按需过滤
         const result = someTopics.map((item) => {
             const index = this.topicCollect.findIndex(cItem => cItem.id === item.id);
@@ -63,14 +84,19 @@ class TopicStore {
                 toggleCollectHandel: this.collect.bind(this),
             };
         });
-        return result;
+        const tt = {
+            ...this.topics,
+        };
+        tt[`${this.tab}`] = result;
+        return tt;
     }
+
 
     @action
     collect(id) {
         const url = dataSourceUrl.collect;
         const accesstoken = '98cb1033-b2b3-4af3-83b1-3c03002a71e7';// 未来需要移除，将来着后台，这里为测试代码，
-        const item = this.topics.find(val => val.id === id);
+        const item = this.topics[this.tab].find(val => val.id === id);
         if (item) {
             this.topicCollect.push(item);
         }
@@ -123,7 +149,7 @@ class TopicStore {
                     const data = datas.data || [];
                     this.topicCollect = data.map(item => item);
                     this.topicCollect.forEach((val) => { // 找出收藏的项
-                        const arm = this.topics.find(topic => topic.id === val.id);
+                        const arm = this.topics[this.tab].find(topic => topic.id === val.id);
                         if (arm) {
                             arm.collect = true;
                         }
@@ -143,6 +169,10 @@ class TopicStore {
 
     @action
     fetchTopic(tab = tabs.all) {
+        this.tab = tab;
+        if (this.topics[tab].length > 0) {
+            return new Promise(resolve => resolve(true));
+        }
         return new Promise((resolve, reject) => { // Promise对象会立即执行，当状态为resolved时触发then函数
             const url = dataSourceUrl.topicList;
             this.fatching = true;
@@ -150,7 +180,7 @@ class TopicStore {
             get(url, { tab, limit }).then((datas) => {
                 if (datas.success) {
                     const data = datas.data || [];
-                    this.topics = data.map(item => new Topic(item));
+                    this.topics[`${tab}`] = data.map(item => new Topic(item));
                     resolve(true);
                 } else {
                     resolve(false);

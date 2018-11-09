@@ -29,6 +29,7 @@ class TopicList extends Component {
         }
     }
 
+
     getData() {
         const { location } = this.props;
         const tab = queryString.parse(location.search).tab || 'all';
@@ -44,6 +45,7 @@ class TopicList extends Component {
 
     render() {
         const { topicStore } = this.props;
+        const { tab } = topicStore;
         return (
             <Grid
                 container
@@ -53,7 +55,7 @@ class TopicList extends Component {
             >
                 <Grid item md={6}>
                     <TopicTab />
-                    <TopicItemContainer lists={topicStore.visibalTopics} />
+                    <TopicItemContainer hidden lists={topicStore.visibalTopics[tab]} />
                 </Grid>
             </Grid>
         );

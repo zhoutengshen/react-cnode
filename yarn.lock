@@ -2857,7 +2857,7 @@ faye-websocket@~0.11.0:
   dependencies:
     websocket-driver ">=0.5.1"
 
-fbjs@^0.8.1:
+fbjs@^0.8.1, fbjs@^0.8.4:
   version "0.8.17"
   resolved "http://registry.npm.taobao.org/fbjs/download/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
   integrity sha1-xNWY6taUkRJlPWWIsBpc3Nn5D90=
@@ -4531,6 +4531,11 @@ mkdirp@0.5.1, mkdirp@0.5.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   dependencies:
     minimist "0.0.8"
 
+mobx-react-devtools@^6.0.3:
+  version "6.0.3"
+  resolved "http://registry.npm.taobao.org/mobx-react-devtools/download/mobx-react-devtools-6.0.3.tgz#4d536c8cdd77d9f4b81f5e8415d7bedccc6a2a99"
+  integrity sha1-TVNsjN132fS4H16EFde+3MxqKpk=
+
 mobx-react@^5.2.8:
   version "5.2.8"
   resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-5.2.8.tgz#059c7f29254d7cd36e103d79113103b40348d3bf"
@@ -5506,6 +5511,14 @@ rc@^1.2.7:
     ini "~1.3.0"
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
+
+react-addons-perf@^15.4.2:
+  version "15.4.2"
+  resolved "http://registry.npm.taobao.org/react-addons-perf/download/react-addons-perf-15.4.2.tgz#110bdcf5c459c4f77cb85ed634bcd3397536383b"
+  integrity sha1-EQvc9cRZxPd8uF7WNLzTOXU2ODs=
+  dependencies:
+    fbjs "^0.8.4"
+    object-assign "^4.1.0"
 
 react-async-bootstrapper@^2.1.1:
   version "2.1.1"

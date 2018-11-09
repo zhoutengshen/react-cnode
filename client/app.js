@@ -8,7 +8,6 @@ import App from './views/App';
 import { AppStore, TopicStore } from './store/store';
 import thme from './theme';
 
-
 const root = document.getElementById('app');
 const initialStates = window.__INITIAL_STATES__ || {};// eslint-disable-line
 

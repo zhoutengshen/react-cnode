@@ -58,7 +58,6 @@ class TopicCard extends React.Component {
         show: true,
     }
 
-
     render() {
         const {
             classes, topic, topicStore, animationDelay,//eslint-disable-line

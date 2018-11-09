@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import TopicCard from './TopicCard';
+import TopicCollectContainer from './TopicCollectContainer';
 
 @inject(({ stores }) => ({
     appStore: stores.appStore,
@@ -32,7 +32,8 @@ class UserInfo extends React.Component {
             zIndex: -99,
         };
 
-        const topicCollect = topicStore.topicCollect || [];
+        const topicCollect = topicStore.visibalTopicCollect || [];
+        console.log(topicCollect);
         return (
             <div className={classes.root}>
                 <div className={classes.userInfo}>
@@ -50,9 +51,7 @@ class UserInfo extends React.Component {
                             item
                             md={9}
                         >
-                            {
-                                topicCollect.map((item, index) => <TopicCard animationDelay={(index + 1) * 500} topic={item} key={item.id} />)
-                            }
+                            <TopicCollectContainer topicCollect={topicCollect} />
                         </Grid>
                     </Grid>
                 </div>
