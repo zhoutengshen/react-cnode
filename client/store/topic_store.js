@@ -34,6 +34,7 @@ class TopicStore {
         this.topicsItemCount = topicsItemCount;
         this.topicDetails = topicDetails;
         this.topicCollect = topicCollect;
+        this.setTopicsItemCount = this.setTopicsItemCount.bind(this);
     }
 
     @observable
@@ -59,6 +60,12 @@ class TopicStore {
     @observable
     tab = 'all'
 
+
+    @action
+    setTopicsItemCount(val) {
+        this.topicsItemCount = val;
+    }
+
     @computed
     get visibalTopicCollect() {
         return this.topicCollect.filter((val, index) => index < this.collectItemCount);
@@ -66,8 +73,10 @@ class TopicStore {
 
     @computed
     get visibalTopics() { // 按需显示
-        const startIndex = this.topics[`${this.tab}`].length > this.topicsItemCount ? this.topicsItemCount : this.topics[`${this.tab}`].length;
-        const someTopics = this.topics[`${this.tab}`].slice(0, startIndex);
+        const lenght = (this.topics[`${this.tab}`].length - 10) > 0 ? (this.topics[`${this.tab}`].length - 10) : 0;
+        const startIndex = this.topicsItemCount > this.topics[`${this.tab}`].length ? lenght : this.topicsItemCount;
+        const endIndex = (this.topicsItemCount + 10) > this.topics[`${this.tab}`].length ? this.topics[`${this.tab}`].length : (this.topicsItemCount + 10);
+        const someTopics = this.topics[`${this.tab}`].slice(startIndex, endIndex);
         // 按需过滤
         const result = someTopics.map((item) => {
             const index = this.topicCollect.findIndex(cItem => cItem.id === item.id);
@@ -176,7 +185,7 @@ class TopicStore {
         return new Promise((resolve, reject) => { // Promise对象会立即执行，当状态为resolved时触发then函数
             const url = dataSourceUrl.topicList;
             this.fatching = true;
-            const limit = 40;
+            const limit = 100;
             get(url, { tab, limit }).then((datas) => {
                 if (datas.success) {
                     const data = datas.data || [];

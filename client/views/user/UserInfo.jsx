@@ -33,7 +33,6 @@ class UserInfo extends React.Component {
         };
 
         const topicCollect = topicStore.visibalTopicCollect || [];
-        console.log(topicCollect);
         return (
             <div className={classes.root}>
                 <div className={classes.userInfo}>

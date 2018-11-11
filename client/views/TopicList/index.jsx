@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import { inject, observer } from 'mobx-react';
 import Grid from '@material-ui/core/Grid';
+import Paging from '../Common/Paging';
 import {
     TopicStore,
 } from '../../store/store';
@@ -45,7 +46,7 @@ class TopicList extends Component {
 
     render() {
         const { topicStore } = this.props;
-        const { tab } = topicStore;
+        const { tab, setTopicsItemCount } = topicStore;
         return (
             <Grid
                 container
@@ -56,6 +57,7 @@ class TopicList extends Component {
                 <Grid item md={6}>
                     <TopicTab />
                     <TopicItemContainer hidden lists={topicStore.visibalTopics[tab]} />
+                    <Paging count={10} lastClickHandle={(val) => { setTopicsItemCount(val * 10); }} nextClickHandle={(val) => { setTopicsItemCount(val * 10); }} />
                 </Grid>
             </Grid>
         );
