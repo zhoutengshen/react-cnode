@@ -73,4 +73,4 @@ npm install
 
 ### 效果图
 
-[img](img.jif)
+![image](https://github.com/zhoutengshen/my-cnode/blob/master/img.gif)
